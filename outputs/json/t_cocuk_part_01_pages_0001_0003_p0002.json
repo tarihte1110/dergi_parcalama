@@ -1,0 +1,267 @@
+{
+  "image_path": "inputs/t_cocuk_part_01_pages_0001_0003.pdf#page=2",
+  "page_size": {
+    "height": 1594,
+    "width": 2416
+  },
+  "text_blocks": [
+    {
+      "article_group_id": "a1",
+      "bbox_px": [
+        86,
+        184,
+        439,
+        214
+      ],
+      "block_id": "t1",
+      "role": "headline",
+      "text": "Yayın Sahibi: İhlâs Gazetecilik A.Ş."
+    },
+    {
+      "article_group_id": "a2",
+      "bbox_px": [
+        1266,
+        179,
+        1620,
+        356
+      ],
+      "block_id": "t2",
+      "role": "content",
+      "text": "Haydi, sen de Bereket Döner'in, \"Dost Patiler\" projesi ile sokak hayvanlarını mutlu edecek bir şey yap. Bereket Döner restoranlarında artan dönerleri özel tasarladığımız su ve yağ sızdırmaz ambalajlara koyarak yanına al ve sokak hayvanlarıyla paylaş."
+    },
+    {
+      "article_group_id": "a1",
+      "bbox_px": [
+        140,
+        265,
+        388,
+        509
+      ],
+      "block_id": "t3",
+      "role": "content",
+      "text": "Genel Yavın Müdürü Mehmet Sırrı Arvas mehmetsirri.arvas@tg.com.tr Sorumlu Müdür Ahmet Demirbas ahmet.demirbas@tg.com.tr Sanat Yönetmeni İsmail Gürbüz ismail.gurbuz@tg.com.tr"
+    },
+    {
+      "article_group_id": "a3",
+      "bbox_px": [
+        1667,
+        229,
+        1967,
+        276
+      ],
+      "block_id": "t4",
+      "role": "headline",
+      "text": "BEREKETDÖNER"
+    },
+    {
+      "article_group_id": "a5",
+      "bbox_px": [
+        1475,
+        446,
+        1634,
+        466
+      ],
+      "block_id": "t5",
+      "role": "other_text",
+      "text": "Bereket Döner'egel,"
+    },
+    {
+      "article_group_id": "a7",
+      "bbox_px": [
+        191,
+        565,
+        332,
+        608
+      ],
+      "block_id": "t6",
+      "role": "other_text",
+      "text": "REKLAM / SATIŞ PAZARLAMA"
+    },
+    {
+      "article_group_id": "a8",
+      "bbox_px": [
+        559,
+        570,
+        1165,
+        800
+      ],
+      "block_id": "t7",
+      "role": "content",
+      "text": "🦹 Merhaba...... 1 🤽 Bilim.......6-7 🤾 Mizah.......8-9 🤾 Hayvandan Al Haberi......10-17 🦹 Şiir................................... 🦹 Temel Amca...................................."
+    },
+    {
+      "article_group_id": "a6",
+      "bbox_px": [
+        1985,
+        538,
+        2083,
+        555
+      ],
+      "block_id": "t8",
+      "role": "other_text",
+      "text": "Siparişini ver"
+    },
+    {
+      "article_group_id": "a9",
+      "bbox_px": [
+        161,
+        662,
+        362,
+        873
+      ],
+      "block_id": "t9",
+      "role": "content",
+      "text": "Reklam Koordinatörü Enver Özsoy enver.ozsoy@tg.com.tr 0212.454 31 62 Reklam Koordinatörü Fatih Pakkan fatih.pakkan@tg.com.tr 0212.454 37 16"
+    },
+    {
+      "article_group_id": "a10",
+      "bbox_px": [
+        1868,
+        805,
+        1965,
+        822
+      ],
+      "block_id": "t10",
+      "role": "other_text",
+      "text": "Yemeğini ye,"
+    },
+    {
+      "article_group_id": "a11",
+      "bbox_px": [
+        559,
+        866,
+        1163,
+        890
+      ],
+      "block_id": "t11",
+      "role": "other_text",
+      "text": "🤾 Meraklı Bilgiler......24"
+    },
+    {
+      "article_group_id": "a12",
+      "bbox_px": [
+        1239,
+        889,
+        1481,
+        1117
+      ],
+      "block_id": "t12",
+      "role": "content",
+      "text": "HERKES ICIN BEREKET 4 Artan yemeklerinizi bu pakette yanınıza alarak minik dostlarımızı BEREKETDÖNER 🕮 Rakamları sırasıyla takip ederek \"Dost Patiler\"in hikayesini öğren!"
+    },
+    {
+      "article_group_id": "a13",
+      "bbox_px": [
+        559,
+        959,
+        1165,
+        1401
+      ],
+      "block_id": "t13",
+      "role": "content",
+      "text": "🦹 İlginç Buluşlar...... 31 🧸 Affan Dede Anlatiyor ( Masal )................................... 🧸 Sıska Sıtkı Uzayda (Çizgi roman).................................... 🧸 Şiirlerle Nasreddin Hoca......42 🦹 Hayvanat Bahçesi (Karikatürler).......43-55-57 🦹 Araştırma.......44-45 🦹 Oynayalım Eğlenelim.................................... 🧗 Ortaya Karışık ( Karikatürler ).................................... 🦹 Çocuk Bahçesi......50-51 🦹 Gönül Bahçesi.................................... 🧸 Bizim Behçet......54 ¥ Bulmacalar......58-63 🤻 Çengel Bulmaca......64"
+    },
+    {
+      "article_group_id": "a14",
+      "bbox_px": [
+        1910,
+        969,
+        2021,
+        1075
+      ],
+      "block_id": "t14",
+      "role": "content",
+      "text": "5 Ve sokak hayvanlarıyla paylas."
+    },
+    {
+      "article_group_id": "a16",
+      "bbox_px": [
+        120,
+        1021,
+        408,
+        1480
+      ],
+      "block_id": "t15",
+      "role": "content",
+      "text": "TÜRKİYE GAZETESİ'NİN MART 2018 SAYISININ ÖZEL EKİDİR ADRES: Merkez Mahallesi 29 Ekim Caddesi İhlas Plaza No: 11 A/41 34197 YenibosnaBahçelievler/İSTANBUL e-mail: turkiye.cocuk@tg.com.tr twitter.com/turkiyecocuk Baskı: İhlas Gazetecilik AŞ 34197, Yenibosna / Istanbul Dağıtım: Turkuvaz Dağıtım Pazarlama AŞ Telefon Santral: 0 212 454 30 00 Faks: 0 212 454 31 00"
+    },
+    {
+      "article_group_id": "a15",
+      "bbox_px": [
+        2144,
+        989,
+        2240,
+        1109
+      ],
+      "block_id": "t16",
+      "role": "content",
+      "text": "4 Arta kalanları Dost Patiler Ambalajina doldui"
+    },
+    {
+      "article_group_id": "a17",
+      "bbox_px": [
+        1264,
+        1491,
+        1747,
+        1552
+      ],
+      "block_id": "t17",
+      "role": "headline",
+      "text": "BEREKETDÖNER"
+    },
+    {
+      "article_group_id": "a18",
+      "bbox_px": [
+        2138,
+        1501,
+        2336,
+        1545
+      ],
+      "block_id": "t18",
+      "role": "other_text",
+      "text": "530 314 8488 | bereketdoner.com.tr fo o / bereketdoner"
+    }
+  ],
+  "visual_blocks": [
+    {
+      "bbox_px": [
+        547,
+        274,
+        1203,
+        551
+      ],
+      "block_id": "v1",
+      "crop_path": "outputs/crops/t_cocuk_part_01_pages_0001_0003_p0002/v1.png"
+    },
+    {
+      "bbox_px": [
+        1225,
+        371,
+        1595,
+        996
+      ],
+      "block_id": "v2",
+      "crop_path": "outputs/crops/t_cocuk_part_01_pages_0001_0003_p0002/v2.png"
+    },
+    {
+      "bbox_px": [
+        1648,
+        603,
+        1962,
+        927
+      ],
+      "block_id": "v3",
+      "crop_path": "outputs/crops/t_cocuk_part_01_pages_0001_0003_p0002/v3.png"
+    },
+    {
+      "bbox_px": [
+        1191,
+        759,
+        2416,
+        1489
+      ],
+      "block_id": "v4",
+      "crop_path": "outputs/crops/t_cocuk_part_01_pages_0001_0003_p0002/v4.png"
+    }
+  ]
+}

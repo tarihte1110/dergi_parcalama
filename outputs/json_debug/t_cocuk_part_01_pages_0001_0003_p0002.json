@@ -1,0 +1,2435 @@
+{
+  "image_path": "inputs/t_cocuk_part_01_pages_0001_0003.pdf#page=2",
+  "page_size": {
+    "height": 1594,
+    "width": 2416
+  },
+  "rejected_visual_candidates": [
+    {
+      "area_ratio": 1.2e-05,
+      "bbox_px": [
+        833,
+        1484,
+        841,
+        1490
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 2.1e-05,
+      "bbox_px": [
+        773,
+        1455,
+        782,
+        1464
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 0.000104,
+      "bbox_px": [
+        803,
+        1433,
+        823,
+        1453
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 0.0,
+      "bbox_px": [
+        627,
+        1330,
+        628,
+        1331
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 6e-06,
+      "bbox_px": [
+        690,
+        1329,
+        695,
+        1334
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 8e-06,
+      "bbox_px": [
+        619,
+        1329,
+        625,
+        1334
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 9e-06,
+      "bbox_px": [
+        591,
+        1326,
+        596,
+        1333
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 9.6e-05,
+      "bbox_px": [
+        630,
+        1325,
+        671,
+        1334
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 7.8e-05,
+      "bbox_px": [
+        565,
+        1319,
+        580,
+        1339
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 6e-06,
+      "bbox_px": [
+        632,
+        1209,
+        637,
+        1214
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 8e-06,
+      "bbox_px": [
+        1142,
+        1203,
+        1147,
+        1209
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 8e-06,
+      "bbox_px": [
+        1113,
+        1203,
+        1118,
+        1209
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 9.8e-05,
+      "bbox_px": [
+        589,
+        1203,
+        618,
+        1216
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 7.9e-05,
+      "bbox_px": [
+        565,
+        1200,
+        581,
+        1219
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 6e-06,
+      "bbox_px": [
+        1210,
+        1132,
+        1215,
+        1137
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 6e-06,
+      "bbox_px": [
+        1934,
+        1097,
+        1939,
+        1102
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 5.7e-05,
+      "bbox_px": [
+        2000,
+        1091,
+        2013,
+        1108
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 6e-05,
+      "bbox_px": [
+        1838,
+        1083,
+        1849,
+        1104
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 6e-05,
+      "bbox_px": [
+        1775,
+        1082,
+        1786,
+        1103
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 0.000117,
+      "bbox_px": [
+        1887,
+        1059,
+        1905,
+        1084
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 5.3e-05,
+      "bbox_px": [
+        1869,
+        1036,
+        1881,
+        1053
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 2.9e-05,
+      "bbox_px": [
+        1224,
+        1035,
+        1234,
+        1046
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 3.3e-05,
+      "bbox_px": [
+        1441,
+        1034,
+        1449,
+        1050
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 4e-05,
+      "bbox_px": [
+        2029,
+        985,
+        2040,
+        999
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 0.000324,
+      "bbox_px": [
+        1964,
+        970,
+        1993,
+        1013
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 0.000377,
+      "bbox_px": [
+        1935,
+        956,
+        1979,
+        989
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 8e-06,
+      "bbox_px": [
+        1461,
+        939,
+        1467,
+        944
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1e-05,
+      "bbox_px": [
+        667,
+        939,
+        675,
+        944
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.4e-05,
+      "bbox_px": [
+        655,
+        939,
+        666,
+        944
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 6e-06,
+      "bbox_px": [
+        606,
+        939,
+        611,
+        944
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 4.7e-05,
+      "bbox_px": [
+        628,
+        938,
+        654,
+        945
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 4.7e-05,
+      "bbox_px": [
+        2011,
+        937,
+        2025,
+        950
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 7.8e-05,
+      "bbox_px": [
+        565,
+        929,
+        580,
+        949
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 8e-06,
+      "bbox_px": [
+        738,
+        909,
+        744,
+        914
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 6e-06,
+      "bbox_px": [
+        719,
+        909,
+        724,
+        914
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 6e-06,
+      "bbox_px": [
+        634,
+        909,
+        639,
+        914
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 8e-06,
+      "bbox_px": [
+        603,
+        909,
+        609,
+        914
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 4.7e-05,
+      "bbox_px": [
+        1982,
+        905,
+        1997,
+        917
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 6e-06,
+      "bbox_px": [
+        657,
+        905,
+        662,
+        910
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 7.8e-05,
+      "bbox_px": [
+        564,
+        899,
+        579,
+        919
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 4e-05,
+      "bbox_px": [
+        1946,
+        883,
+        1963,
+        892
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 5.1e-05,
+      "bbox_px": [
+        1909,
+        864,
+        1927,
+        875
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 6e-06,
+      "bbox_px": [
+        601,
+        854,
+        606,
+        859
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 2.9e-05,
+      "bbox_px": [
+        1869,
+        852,
+        1885,
+        859
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 3.3e-05,
+      "bbox_px": [
+        1714,
+        843,
+        1732,
+        850
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 3.1e-05,
+      "bbox_px": [
+        1652,
+        841,
+        1672,
+        847
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 3e-05,
+      "bbox_px": [
+        1681,
+        840,
+        1700,
+        846
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 7.8e-05,
+      "bbox_px": [
+        564,
+        838,
+        579,
+        858
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 3.7e-05,
+      "bbox_px": [
+        1630,
+        834,
+        1643,
+        845
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 6.4e-05,
+      "bbox_px": [
+        1876,
+        827,
+        1895,
+        840
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.6e-05,
+      "bbox_px": [
+        1674,
+        822,
+        1683,
+        829
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 6e-06,
+      "bbox_px": [
+        735,
+        819,
+        740,
+        824
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 6e-06,
+      "bbox_px": [
+        678,
+        819,
+        683,
+        824
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 8e-06,
+      "bbox_px": [
+        698,
+        815,
+        704,
+        820
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 6.5e-05,
+      "bbox_px": [
+        617,
+        815,
+        642,
+        825
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 3.3e-05,
+      "bbox_px": [
+        1621,
+        814,
+        1629,
+        830
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 4.3e-05,
+      "bbox_px": [
+        1847,
+        813,
+        1858,
+        828
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 6e-06,
+      "bbox_px": [
+        1151,
+        813,
+        1156,
+        818
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 5.1e-05,
+      "bbox_px": [
+        589,
+        813,
+        603,
+        827
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 8.8e-05,
+      "bbox_px": [
+        564,
+        808,
+        581,
+        828
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 3.6e-05,
+      "bbox_px": [
+        1616,
+        791,
+        1626,
+        805
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 0.000166,
+      "bbox_px": [
+        1682,
+        785,
+        1711,
+        807
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 4e-05,
+      "bbox_px": [
+        1625,
+        766,
+        1639,
+        777
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 4e-05,
+      "bbox_px": [
+        1656,
+        759,
+        1673,
+        768
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 0.0,
+      "bbox_px": [
+        1707,
+        755,
+        1708,
+        756
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 2.9e-05,
+      "bbox_px": [
+        1690,
+        753,
+        1706,
+        760
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 0.080924,
+      "bbox_px": [
+        66,
+        735,
+        463,
+        1520
+      ],
+      "reason": "text_heavy_region"
+    },
+    {
+      "area_ratio": 1e-06,
+      "bbox_px": [
+        604,
+        730,
+        606,
+        731
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 6e-06,
+      "bbox_px": [
+        633,
+        729,
+        638,
+        734
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 2.9e-05,
+      "bbox_px": [
+        607,
+        729,
+        621,
+        737
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.6e-05,
+      "bbox_px": [
+        591,
+        727,
+        603,
+        732
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 6e-06,
+      "bbox_px": [
+        1140,
+        723,
+        1145,
+        728
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 0.000227,
+      "bbox_px": [
+        1632,
+        722,
+        1678,
+        741
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 7.8e-05,
+      "bbox_px": [
+        564,
+        719,
+        579,
+        739
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 4.2e-05,
+      "bbox_px": [
+        1946,
+        717,
+        1966,
+        725
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 3.9e-05,
+      "bbox_px": [
+        1982,
+        708,
+        1997,
+        718
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.3e-05,
+      "bbox_px": [
+        1229,
+        697,
+        1236,
+        704
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 2.6e-05,
+      "bbox_px": [
+        1879,
+        696,
+        1890,
+        705
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 9.1e-05,
+      "bbox_px": [
+        1892,
+        695,
+        1914,
+        711
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 9e-06,
+      "bbox_px": [
+        1255,
+        695,
+        1261,
+        701
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 0.000137,
+      "bbox_px": [
+        1654,
+        694,
+        1687,
+        710
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.6e-05,
+      "bbox_px": [
+        1581,
+        694,
+        1590,
+        701
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.2e-05,
+      "bbox_px": [
+        1242,
+        685,
+        1248,
+        693
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.7e-05,
+      "bbox_px": [
+        1270,
+        684,
+        1278,
+        692
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.3e-05,
+      "bbox_px": [
+        1308,
+        675,
+        1315,
+        682
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.1e-05,
+      "bbox_px": [
+        1281,
+        673,
+        1287,
+        680
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.5e-05,
+      "bbox_px": [
+        1888,
+        672,
+        1896,
+        679
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 9e-06,
+      "bbox_px": [
+        1581,
+        669,
+        1587,
+        675
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.1e-05,
+      "bbox_px": [
+        1315,
+        659,
+        1321,
+        666
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 0.001727,
+      "bbox_px": [
+        2238,
+        652,
+        2308,
+        747
+      ],
+      "reason": "too_small_ratio"
+    },
+    {
+      "area_ratio": 1.5e-05,
+      "bbox_px": [
+        1556,
+        652,
+        1564,
+        659
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.5e-05,
+      "bbox_px": [
+        1279,
+        643,
+        1286,
+        651
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.3e-05,
+      "bbox_px": [
+        1244,
+        619,
+        1251,
+        626
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 6.2e-05,
+      "bbox_px": [
+        1839,
+        616,
+        1856,
+        630
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 0.000204,
+      "bbox_px": [
+        1863,
+        614,
+        1891,
+        642
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.6e-05,
+      "bbox_px": [
+        1550,
+        610,
+        1557,
+        619
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 8e-06,
+      "bbox_px": [
+        751,
+        609,
+        757,
+        614
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 8e-06,
+      "bbox_px": [
+        713,
+        609,
+        719,
+        614
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 9e-06,
+      "bbox_px": [
+        656,
+        609,
+        663,
+        614
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 2.1e-05,
+      "bbox_px": [
+        1666,
+        607,
+        1674,
+        617
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 9e-06,
+      "bbox_px": [
+        1307,
+        607,
+        1313,
+        613
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 2.8e-05,
+      "bbox_px": [
+        730,
+        605,
+        742,
+        614
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.8e-05,
+      "bbox_px": [
+        1777,
+        604,
+        1784,
+        614
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 8e-06,
+      "bbox_px": [
+        1153,
+        603,
+        1158,
+        609
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 6.5e-05,
+      "bbox_px": [
+        682,
+        603,
+        700,
+        617
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 7.3e-05,
+      "bbox_px": [
+        628,
+        603,
+        648,
+        617
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 4.4e-05,
+      "bbox_px": [
+        602,
+        603,
+        614,
+        617
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 7.4e-05,
+      "bbox_px": [
+        565,
+        599,
+        580,
+        618
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 0.000187,
+      "bbox_px": [
+        1718,
+        590,
+        1742,
+        620
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.1e-05,
+      "bbox_px": [
+        1271,
+        587,
+        1277,
+        594
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.3e-05,
+      "bbox_px": [
+        1330,
+        571,
+        1337,
+        578
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 0.000196,
+      "bbox_px": [
+        2003,
+        569,
+        2032,
+        595
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 3.3e-05,
+      "bbox_px": [
+        2062,
+        560,
+        2070,
+        576
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 0.000151,
+      "bbox_px": [
+        1450,
+        554,
+        1470,
+        583
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.5e-05,
+      "bbox_px": [
+        1536,
+        552,
+        1543,
+        560
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 0.008652,
+      "bbox_px": [
+        68,
+        550,
+        460,
+        635
+      ],
+      "reason": "too_small_ratio"
+    },
+    {
+      "area_ratio": 0.00015,
+      "bbox_px": [
+        1908,
+        548,
+        1942,
+        565
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.5e-05,
+      "bbox_px": [
+        1303,
+        548,
+        1310,
+        556
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 9e-06,
+      "bbox_px": [
+        1285,
+        535,
+        1291,
+        541
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.7e-05,
+      "bbox_px": [
+        1256,
+        523,
+        1264,
+        531
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 9e-06,
+      "bbox_px": [
+        1529,
+        521,
+        1535,
+        527
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.1e-05,
+      "bbox_px": [
+        1488,
+        519,
+        1494,
+        526
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 9e-06,
+      "bbox_px": [
+        1279,
+        489,
+        1285,
+        495
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.5e-05,
+      "bbox_px": [
+        1247,
+        474,
+        1255,
+        481
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 6.2e-05,
+      "bbox_px": [
+        1277,
+        447,
+        1297,
+        459
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.1e-05,
+      "bbox_px": [
+        1441,
+        440,
+        1447,
+        447
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.1e-05,
+      "bbox_px": [
+        1307,
+        428,
+        1313,
+        435
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 9e-06,
+      "bbox_px": [
+        1496,
+        427,
+        1502,
+        433
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.2e-05,
+      "bbox_px": [
+        1604,
+        425,
+        1612,
+        431
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 9e-06,
+      "bbox_px": [
+        1242,
+        421,
+        1248,
+        427
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1e-05,
+      "bbox_px": [
+        2072,
+        399,
+        2080,
+        404
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.3e-05,
+      "bbox_px": [
+        1263,
+        397,
+        1270,
+        404
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.2e-05,
+      "bbox_px": [
+        2081,
+        394,
+        2090,
+        399
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.3e-05,
+      "bbox_px": [
+        1305,
+        392,
+        1312,
+        399
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 0.00077,
+      "bbox_px": [
+        1580,
+        390,
+        1637,
+        442
+      ],
+      "reason": "too_small_ratio"
+    },
+    {
+      "area_ratio": 1.5e-05,
+      "bbox_px": [
+        1484,
+        386,
+        1491,
+        394
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 1.3e-05,
+      "bbox_px": [
+        1282,
+        384,
+        1289,
+        391
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 8.4e-05,
+      "bbox_px": [
+        2093,
+        375,
+        2112,
+        392
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 9e-06,
+      "bbox_px": [
+        1376,
+        361,
+        1382,
+        367
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 0.00013,
+      "bbox_px": [
+        1311,
+        361,
+        1336,
+        381
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 9.8e-05,
+      "bbox_px": [
+        2119,
+        343,
+        2137,
+        364
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 0.001371,
+      "bbox_px": [
+        1220,
+        291,
+        1280,
+        379
+      ],
+      "reason": "too_small_ratio"
+    },
+    {
+      "area_ratio": 2.9e-05,
+      "bbox_px": [
+        948,
+        285,
+        959,
+        295
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 3.1e-05,
+      "bbox_px": [
+        2148,
+        279,
+        2159,
+        290
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 0.004935,
+      "bbox_px": [
+        2191,
+        218,
+        2372,
+        323
+      ],
+      "reason": "too_small_ratio"
+    },
+    {
+      "area_ratio": 0.014741,
+      "bbox_px": [
+        66,
+        175,
+        463,
+        318
+      ],
+      "reason": "text_heavy_region"
+    },
+    {
+      "area_ratio": 0.001982,
+      "bbox_px": [
+        2058,
+        100,
+        2164,
+        172
+      ],
+      "reason": "too_small_ratio"
+    },
+    {
+      "area_ratio": 0.005025,
+      "bbox_px": [
+        1343,
+        80,
+        1558,
+        170
+      ],
+      "reason": "too_small_ratio"
+    },
+    {
+      "area_ratio": 0.004246,
+      "bbox_px": [
+        2157,
+        76,
+        2354,
+        159
+      ],
+      "reason": "too_small_ratio"
+    },
+    {
+      "area_ratio": 0.006558,
+      "bbox_px": [
+        123,
+        72,
+        410,
+        160
+      ],
+      "reason": "too_small_ratio"
+    },
+    {
+      "area_ratio": 0.791805,
+      "bbox_px": [
+        503,
+        0,
+        2416,
+        1594
+      ],
+      "reason": "too_large_ratio"
+    }
+  ],
+  "text_blocks": [
+    {
+      "article_group_id": "a1",
+      "bbox_px": [
+        86,
+        184,
+        439,
+        214
+      ],
+      "block_id": "t1",
+      "role": "headline",
+      "text": "Yayın Sahibi: İhlâs Gazetecilik A.Ş."
+    },
+    {
+      "article_group_id": "a2",
+      "bbox_px": [
+        1266,
+        179,
+        1620,
+        356
+      ],
+      "block_id": "t2",
+      "role": "content",
+      "text": "Haydi, sen de Bereket Döner'in, \"Dost Patiler\" projesi ile sokak hayvanlarını mutlu edecek bir şey yap. Bereket Döner restoranlarında artan dönerleri özel tasarladığımız su ve yağ sızdırmaz ambalajlara koyarak yanına al ve sokak hayvanlarıyla paylaş."
+    },
+    {
+      "article_group_id": "a1",
+      "bbox_px": [
+        140,
+        265,
+        388,
+        509
+      ],
+      "block_id": "t3",
+      "role": "content",
+      "text": "Genel Yavın Müdürü Mehmet Sırrı Arvas mehmetsirri.arvas@tg.com.tr Sorumlu Müdür Ahmet Demirbas ahmet.demirbas@tg.com.tr Sanat Yönetmeni İsmail Gürbüz ismail.gurbuz@tg.com.tr"
+    },
+    {
+      "article_group_id": "a3",
+      "bbox_px": [
+        1667,
+        229,
+        1967,
+        276
+      ],
+      "block_id": "t4",
+      "role": "headline",
+      "text": "BEREKETDÖNER"
+    },
+    {
+      "article_group_id": "a5",
+      "bbox_px": [
+        1475,
+        446,
+        1634,
+        466
+      ],
+      "block_id": "t5",
+      "role": "other_text",
+      "text": "Bereket Döner'egel,"
+    },
+    {
+      "article_group_id": "a7",
+      "bbox_px": [
+        191,
+        565,
+        332,
+        608
+      ],
+      "block_id": "t6",
+      "role": "other_text",
+      "text": "REKLAM / SATIŞ PAZARLAMA"
+    },
+    {
+      "article_group_id": "a8",
+      "bbox_px": [
+        559,
+        570,
+        1165,
+        800
+      ],
+      "block_id": "t7",
+      "role": "content",
+      "text": "🦹 Merhaba...... 1 🤽 Bilim.......6-7 🤾 Mizah.......8-9 🤾 Hayvandan Al Haberi......10-17 🦹 Şiir................................... 🦹 Temel Amca...................................."
+    },
+    {
+      "article_group_id": "a6",
+      "bbox_px": [
+        1985,
+        538,
+        2083,
+        555
+      ],
+      "block_id": "t8",
+      "role": "other_text",
+      "text": "Siparişini ver"
+    },
+    {
+      "article_group_id": "a9",
+      "bbox_px": [
+        161,
+        662,
+        362,
+        873
+      ],
+      "block_id": "t9",
+      "role": "content",
+      "text": "Reklam Koordinatörü Enver Özsoy enver.ozsoy@tg.com.tr 0212.454 31 62 Reklam Koordinatörü Fatih Pakkan fatih.pakkan@tg.com.tr 0212.454 37 16"
+    },
+    {
+      "article_group_id": "a10",
+      "bbox_px": [
+        1868,
+        805,
+        1965,
+        822
+      ],
+      "block_id": "t10",
+      "role": "other_text",
+      "text": "Yemeğini ye,"
+    },
+    {
+      "article_group_id": "a11",
+      "bbox_px": [
+        559,
+        866,
+        1163,
+        890
+      ],
+      "block_id": "t11",
+      "role": "other_text",
+      "text": "🤾 Meraklı Bilgiler......24"
+    },
+    {
+      "article_group_id": "a12",
+      "bbox_px": [
+        1239,
+        889,
+        1481,
+        1117
+      ],
+      "block_id": "t12",
+      "role": "content",
+      "text": "HERKES ICIN BEREKET 4 Artan yemeklerinizi bu pakette yanınıza alarak minik dostlarımızı BEREKETDÖNER 🕮 Rakamları sırasıyla takip ederek \"Dost Patiler\"in hikayesini öğren!"
+    },
+    {
+      "article_group_id": "a13",
+      "bbox_px": [
+        559,
+        959,
+        1165,
+        1401
+      ],
+      "block_id": "t13",
+      "role": "content",
+      "text": "🦹 İlginç Buluşlar...... 31 🧸 Affan Dede Anlatiyor ( Masal )................................... 🧸 Sıska Sıtkı Uzayda (Çizgi roman).................................... 🧸 Şiirlerle Nasreddin Hoca......42 🦹 Hayvanat Bahçesi (Karikatürler).......43-55-57 🦹 Araştırma.......44-45 🦹 Oynayalım Eğlenelim.................................... 🧗 Ortaya Karışık ( Karikatürler ).................................... 🦹 Çocuk Bahçesi......50-51 🦹 Gönül Bahçesi.................................... 🧸 Bizim Behçet......54 ¥ Bulmacalar......58-63 🤻 Çengel Bulmaca......64"
+    },
+    {
+      "article_group_id": "a14",
+      "bbox_px": [
+        1910,
+        969,
+        2021,
+        1075
+      ],
+      "block_id": "t14",
+      "role": "content",
+      "text": "5 Ve sokak hayvanlarıyla paylas."
+    },
+    {
+      "article_group_id": "a16",
+      "bbox_px": [
+        120,
+        1021,
+        408,
+        1480
+      ],
+      "block_id": "t15",
+      "role": "content",
+      "text": "TÜRKİYE GAZETESİ'NİN MART 2018 SAYISININ ÖZEL EKİDİR ADRES: Merkez Mahallesi 29 Ekim Caddesi İhlas Plaza No: 11 A/41 34197 YenibosnaBahçelievler/İSTANBUL e-mail: turkiye.cocuk@tg.com.tr twitter.com/turkiyecocuk Baskı: İhlas Gazetecilik AŞ 34197, Yenibosna / Istanbul Dağıtım: Turkuvaz Dağıtım Pazarlama AŞ Telefon Santral: 0 212 454 30 00 Faks: 0 212 454 31 00"
+    },
+    {
+      "article_group_id": "a15",
+      "bbox_px": [
+        2144,
+        989,
+        2240,
+        1109
+      ],
+      "block_id": "t16",
+      "role": "content",
+      "text": "4 Arta kalanları Dost Patiler Ambalajina doldui"
+    },
+    {
+      "article_group_id": "a17",
+      "bbox_px": [
+        1264,
+        1491,
+        1747,
+        1552
+      ],
+      "block_id": "t17",
+      "role": "headline",
+      "text": "BEREKETDÖNER"
+    },
+    {
+      "article_group_id": "a18",
+      "bbox_px": [
+        2138,
+        1501,
+        2336,
+        1545
+      ],
+      "block_id": "t18",
+      "role": "other_text",
+      "text": "530 314 8488 | bereketdoner.com.tr fo o / bereketdoner"
+    }
+  ],
+  "text_blocks_debug": [
+    {
+      "avg_line_confidence": 0.8931,
+      "block_id": "t1",
+      "line_count": 1,
+      "regions_px": [
+        [
+          86,
+          184,
+          439,
+          214
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9937,
+      "block_id": "t2",
+      "line_count": 7,
+      "regions_px": [
+        [
+          1267,
+          179,
+          1589,
+          204
+        ],
+        [
+          1266,
+          204,
+          1580,
+          226
+        ],
+        [
+          1268,
+          228,
+          1487,
+          250
+        ],
+        [
+          1267,
+          260,
+          1580,
+          285
+        ],
+        [
+          1268,
+          286,
+          1600,
+          308
+        ],
+        [
+          1266,
+          308,
+          1620,
+          332
+        ],
+        [
+          1268,
+          332,
+          1530,
+          356
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9416,
+      "block_id": "t3",
+      "line_count": 9,
+      "regions_px": [
+        [
+          175,
+          265,
+          354,
+          283
+        ],
+        [
+          181,
+          289,
+          346,
+          306
+        ],
+        [
+          140,
+          315,
+          388,
+          332
+        ],
+        [
+          193,
+          354,
+          332,
+          370
+        ],
+        [
+          191,
+          378,
+          336,
+          395
+        ],
+        [
+          146,
+          402,
+          380,
+          420
+        ],
+        [
+          191,
+          442,
+          340,
+          459
+        ],
+        [
+          205,
+          465,
+          324,
+          483
+        ],
+        [
+          159,
+          489,
+          368,
+          509
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9474,
+      "block_id": "t4",
+      "line_count": 1,
+      "regions_px": [
+        [
+          1667,
+          229,
+          1967,
+          276
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9834,
+      "block_id": "t5",
+      "line_count": 1,
+      "regions_px": [
+        [
+          1475,
+          446,
+          1634,
+          466
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.7661,
+      "block_id": "t6",
+      "line_count": 2,
+      "regions_px": [
+        [
+          191,
+          565,
+          332,
+          585
+        ],
+        [
+          207,
+          590,
+          322,
+          608
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.8189,
+      "block_id": "t7",
+      "line_count": 6,
+      "regions_px": [
+        [
+          561,
+          570,
+          1161,
+          590
+        ],
+        [
+          559,
+          627,
+          1161,
+          649
+        ],
+        [
+          561,
+          660,
+          1161,
+          678
+        ],
+        [
+          559,
+          685,
+          1163,
+          711
+        ],
+        [
+          559,
+          746,
+          1163,
+          770
+        ],
+        [
+          559,
+          776,
+          1165,
+          800
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9665,
+      "block_id": "t8",
+      "line_count": 1,
+      "regions_px": [
+        [
+          1985,
+          538,
+          2083,
+          555
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9067,
+      "block_id": "t9",
+      "line_count": 8,
+      "regions_px": [
+        [
+          173,
+          662,
+          356,
+          680
+        ],
+        [
+          209,
+          687,
+          316,
+          705
+        ],
+        [
+          167,
+          712,
+          358,
+          730
+        ],
+        [
+          195,
+          735,
+          330,
+          752
+        ],
+        [
+          173,
+          783,
+          356,
+          801
+        ],
+        [
+          207,
+          807,
+          318,
+          825
+        ],
+        [
+          161,
+          832,
+          362,
+          850
+        ],
+        [
+          193,
+          856,
+          332,
+          873
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.99,
+      "block_id": "t10",
+      "line_count": 1,
+      "regions_px": [
+        [
+          1868,
+          805,
+          1965,
+          822
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9395,
+      "block_id": "t11",
+      "line_count": 1,
+      "regions_px": [
+        [
+          559,
+          866,
+          1163,
+          890
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.8608,
+      "block_id": "t12",
+      "line_count": 9,
+      "regions_px": [
+        [
+          1338,
+          889,
+          1403,
+          902
+        ],
+        [
+          1328,
+          907,
+          1423,
+          932
+        ],
+        [
+          1252,
+          944,
+          1306,
+          972
+        ],
+        [
+          1306,
+          948,
+          1480,
+          988
+        ],
+        [
+          1239,
+          973,
+          1481,
+          1029
+        ],
+        [
+          1261,
+          1021,
+          1427,
+          1063
+        ],
+        [
+          1284,
+          1046,
+          1397,
+          1077
+        ],
+        [
+          1239,
+          1059,
+          1445,
+          1107
+        ],
+        [
+          1299,
+          1090,
+          1370,
+          1117
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.8523,
+      "block_id": "t13",
+      "line_count": 13,
+      "regions_px": [
+        [
+          559,
+          959,
+          1161,
+          979
+        ],
+        [
+          559,
+          987,
+          1163,
+          1011
+        ],
+        [
+          559,
+          1017,
+          1161,
+          1041
+        ],
+        [
+          559,
+          1047,
+          1163,
+          1072
+        ],
+        [
+          559,
+          1077,
+          1161,
+          1102
+        ],
+        [
+          559,
+          1109,
+          1163,
+          1131
+        ],
+        [
+          559,
+          1136,
+          1165,
+          1162
+        ],
+        [
+          559,
+          1168,
+          1163,
+          1190
+        ],
+        [
+          559,
+          1227,
+          1163,
+          1251
+        ],
+        [
+          559,
+          1255,
+          1165,
+          1281
+        ],
+        [
+          559,
+          1286,
+          1163,
+          1311
+        ],
+        [
+          559,
+          1348,
+          1165,
+          1368
+        ],
+        [
+          559,
+          1377,
+          1163,
+          1401
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.826,
+      "block_id": "t14",
+      "line_count": 4,
+      "regions_px": [
+        [
+          1946,
+          969,
+          1979,
+          997
+        ],
+        [
+          1910,
+          1017,
+          2021,
+          1035
+        ],
+        [
+          1912,
+          1038,
+          2017,
+          1056
+        ],
+        [
+          1932,
+          1059,
+          1999,
+          1075
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.8337,
+      "block_id": "t15",
+      "line_count": 16,
+      "regions_px": [
+        [
+          122,
+          1021,
+          406,
+          1045
+        ],
+        [
+          171,
+          1048,
+          356,
+          1066
+        ],
+        [
+          229,
+          1107,
+          299,
+          1124
+        ],
+        [
+          191,
+          1130,
+          340,
+          1147
+        ],
+        [
+          150,
+          1153,
+          378,
+          1171
+        ],
+        [
+          185,
+          1180,
+          342,
+          1197
+        ],
+        [
+          120,
+          1201,
+          408,
+          1223
+        ],
+        [
+          126,
+          1225,
+          402,
+          1247
+        ],
+        [
+          157,
+          1249,
+          372,
+          1271
+        ],
+        [
+          231,
+          1294,
+          291,
+          1311
+        ],
+        [
+          175,
+          1316,
+          344,
+          1336
+        ],
+        [
+          140,
+          1341,
+          380,
+          1361
+        ],
+        [
+          219,
+          1376,
+          302,
+          1396
+        ],
+        [
+          124,
+          1400,
+          390,
+          1422
+        ],
+        [
+          122,
+          1436,
+          396,
+          1456
+        ],
+        [
+          167,
+          1462,
+          352,
+          1480
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.8638,
+      "block_id": "t16",
+      "line_count": 5,
+      "regions_px": [
+        [
+          2180,
+          989,
+          2210,
+          1021
+        ],
+        [
+          2144,
+          1041,
+          2240,
+          1057
+        ],
+        [
+          2147,
+          1056,
+          2233,
+          1075
+        ],
+        [
+          2150,
+          1077,
+          2236,
+          1094
+        ],
+        [
+          2166,
+          1095,
+          2212,
+          1109
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9442,
+      "block_id": "t17",
+      "line_count": 1,
+      "regions_px": [
+        [
+          1264,
+          1491,
+          1747,
+          1552
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.6541,
+      "block_id": "t18",
+      "line_count": 2,
+      "regions_px": [
+        [
+          2138,
+          1501,
+          2335,
+          1521
+        ],
+        [
+          2179,
+          1518,
+          2336,
+          1545
+        ]
+      ]
+    }
+  ],
+  "visual_blocks": [
+    {
+      "bbox_px": [
+        547,
+        274,
+        1203,
+        551
+      ],
+      "block_id": "v1",
+      "crop_path": "outputs/crops/t_cocuk_part_01_pages_0001_0003_p0002/v1.png"
+    },
+    {
+      "bbox_px": [
+        1225,
+        371,
+        1595,
+        996
+      ],
+      "block_id": "v2",
+      "crop_path": "outputs/crops/t_cocuk_part_01_pages_0001_0003_p0002/v2.png"
+    },
+    {
+      "bbox_px": [
+        1648,
+        603,
+        1962,
+        927
+      ],
+      "block_id": "v3",
+      "crop_path": "outputs/crops/t_cocuk_part_01_pages_0001_0003_p0002/v3.png"
+    },
+    {
+      "bbox_px": [
+        1191,
+        759,
+        2416,
+        1489
+      ],
+      "block_id": "v4",
+      "crop_path": "outputs/crops/t_cocuk_part_01_pages_0001_0003_p0002/v4.png"
+    }
+  ]
+}

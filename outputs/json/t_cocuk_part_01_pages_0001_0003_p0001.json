@@ -1,0 +1,67 @@
+{
+  "image_path": "inputs/t_cocuk_part_01_pages_0001_0003.pdf#page=1",
+  "page_size": {
+    "height": 1594,
+    "width": 1225
+  },
+  "text_blocks": [
+    {
+      "article_group_id": "a1",
+      "bbox_px": [
+        112,
+        554,
+        380,
+        584
+      ],
+      "block_id": "t1",
+      "role": "headline",
+      "text": "Ektiğini biçer insan"
+    },
+    {
+      "article_group_id": "a1",
+      "bbox_px": [
+        112,
+        618,
+        573,
+        1138
+      ],
+      "block_id": "t2",
+      "role": "content",
+      "text": "Vaktiyle kimseciği olmayan ihtiyar bir kadıncağız, tüm varlığı olan tek ineğinden elde ettiği sütü, tereyağı yapıp komşu bakkala günlük olarak satarak geçinir giderdi. Teyze, kanaatkâr ve mütevekkildi. Avuç açmazdı kimseye. Şükrederdi hep hâline. Ohâliyle insanlara yardım etmeye çalışır, pek sevilirdi civarda. Hani bakkal da güvenirdi teyzeye. Tartma gereği duymazdı getirdiklerini. Teyze, çevrede bilinen, tanınan saygın ve itibarlı idi. Eşinin vefatından sonra tek evladı da şehid olunca Çanakkale'de, öylece kalakalmıştı. Zaman geçip gitmekte, insanlar da değişmektedir... Nasıl olduysa birgün bakkalın içine bir şüphe düşer, acaba teyze tam getiriyor mu tereyağını diye. Ogüne kadar hiç tartmadığı tereyağını alıp tartar. Aaa, bir de ne görsün, 8"
+    },
+    {
+      "article_group_id": "a2",
+      "bbox_px": [
+        626,
+        617,
+        1089,
+        1481
+      ],
+      "block_id": "t3",
+      "role": "content",
+      "text": "tereyağı 1 kg'dan 100 gram eksik. 1 kg olarak aldığı tereyağın aslında 900 gram olduğunu görünce epey sinirlenir. Gerçi devir değişmiş, hile hurda iş yapanların sayısı artmıştır. Lakin, teyzeden böyle bir şey beklemez. Nihayet, ertesi gün ihtiyar kadın dükkâna gelince bakkal, \"Bir daha senden tereyağı almayacağım.\" diye çıkışır, azarlar kadıncağızı. Yaşlı kadın pek üzülür, büker boynunu, \"Efendim bir yanlışım mı oldu? Bi kusurum mu oldu? Tereyağımı beğenmiyor musun?\" diye merakla sorar. Bakkal; \"Senin bana verdiğin yağ 900 gram geldi. Ayıp değil mi bu yaptığın?\" diye bağırır. Bunun üzerine kadın şöyle cevap verir; \"Efendim benim evimde kilom yok, daha önce sizden 1 kilo şeker almıştım onu tartı olarak kullanıyorum.\" Tabii, bakkal kızarır, bozarır, utancından ne yapacağını şaşırır... Böyledir işte dünya, ne ekersen onu biçersin. Kime ne verirsen onu alırsın. Ne doğrarsan çanağına ogelir kaşığına. Büyüklerimiz bizlere dua ederken \"Allahü teala sizleri iyilerle karşılaştırsın\" derlerdi. Ne güzel dua imiş. En büyük hazine dürüst olmaktır. Gelecek sayı sizleri burada bekliyorum. Hoşçakalın. M Sum A"
+    }
+  ],
+  "visual_blocks": [
+    {
+      "bbox_px": [
+        101,
+        0,
+        1225,
+        580
+      ],
+      "block_id": "v1",
+      "crop_path": "outputs/crops/t_cocuk_part_01_pages_0001_0003_p0001/v1.png"
+    },
+    {
+      "bbox_px": [
+        77,
+        1044,
+        641,
+        1520
+      ],
+      "block_id": "v2",
+      "crop_path": "outputs/crops/t_cocuk_part_01_pages_0001_0003_p0001/v2.png"
+    }
+  ]
+}

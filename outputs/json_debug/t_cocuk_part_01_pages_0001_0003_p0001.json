@@ -1,0 +1,428 @@
+{
+  "image_path": "inputs/t_cocuk_part_01_pages_0001_0003.pdf#page=1",
+  "page_size": {
+    "height": 1594,
+    "width": 1225
+  },
+  "rejected_visual_candidates": [
+    {
+      "area_ratio": 0.003226,
+      "bbox_px": [
+        69,
+        1458,
+        139,
+        1548
+      ],
+      "reason": "too_small_ratio"
+    },
+    {
+      "area_ratio": 0.002107,
+      "bbox_px": [
+        981,
+        1425,
+        1102,
+        1459
+      ],
+      "reason": "too_small_abs"
+    },
+    {
+      "area_ratio": 0.005291,
+      "bbox_px": [
+        87,
+        204,
+        150,
+        368
+      ],
+      "reason": "too_small_ratio"
+    }
+  ],
+  "text_blocks": [
+    {
+      "article_group_id": "a1",
+      "bbox_px": [
+        112,
+        554,
+        380,
+        584
+      ],
+      "block_id": "t1",
+      "role": "headline",
+      "text": "Ektiğini biçer insan"
+    },
+    {
+      "article_group_id": "a1",
+      "bbox_px": [
+        112,
+        618,
+        573,
+        1138
+      ],
+      "block_id": "t2",
+      "role": "content",
+      "text": "Vaktiyle kimseciği olmayan ihtiyar bir kadıncağız, tüm varlığı olan tek ineğinden elde ettiği sütü, tereyağı yapıp komşu bakkala günlük olarak satarak geçinir giderdi. Teyze, kanaatkâr ve mütevekkildi. Avuç açmazdı kimseye. Şükrederdi hep hâline. Ohâliyle insanlara yardım etmeye çalışır, pek sevilirdi civarda. Hani bakkal da güvenirdi teyzeye. Tartma gereği duymazdı getirdiklerini. Teyze, çevrede bilinen, tanınan saygın ve itibarlı idi. Eşinin vefatından sonra tek evladı da şehid olunca Çanakkale'de, öylece kalakalmıştı. Zaman geçip gitmekte, insanlar da değişmektedir... Nasıl olduysa birgün bakkalın içine bir şüphe düşer, acaba teyze tam getiriyor mu tereyağını diye. Ogüne kadar hiç tartmadığı tereyağını alıp tartar. Aaa, bir de ne görsün, 8"
+    },
+    {
+      "article_group_id": "a2",
+      "bbox_px": [
+        626,
+        617,
+        1089,
+        1481
+      ],
+      "block_id": "t3",
+      "role": "content",
+      "text": "tereyağı 1 kg'dan 100 gram eksik. 1 kg olarak aldığı tereyağın aslında 900 gram olduğunu görünce epey sinirlenir. Gerçi devir değişmiş, hile hurda iş yapanların sayısı artmıştır. Lakin, teyzeden böyle bir şey beklemez. Nihayet, ertesi gün ihtiyar kadın dükkâna gelince bakkal, \"Bir daha senden tereyağı almayacağım.\" diye çıkışır, azarlar kadıncağızı. Yaşlı kadın pek üzülür, büker boynunu, \"Efendim bir yanlışım mı oldu? Bi kusurum mu oldu? Tereyağımı beğenmiyor musun?\" diye merakla sorar. Bakkal; \"Senin bana verdiğin yağ 900 gram geldi. Ayıp değil mi bu yaptığın?\" diye bağırır. Bunun üzerine kadın şöyle cevap verir; \"Efendim benim evimde kilom yok, daha önce sizden 1 kilo şeker almıştım onu tartı olarak kullanıyorum.\" Tabii, bakkal kızarır, bozarır, utancından ne yapacağını şaşırır... Böyledir işte dünya, ne ekersen onu biçersin. Kime ne verirsen onu alırsın. Ne doğrarsan çanağına ogelir kaşığına. Büyüklerimiz bizlere dua ederken \"Allahü teala sizleri iyilerle karşılaştırsın\" derlerdi. Ne güzel dua imiş. En büyük hazine dürüst olmaktır. Gelecek sayı sizleri burada bekliyorum. Hoşçakalın. M Sum A"
+    }
+  ],
+  "text_blocks_debug": [
+    {
+      "avg_line_confidence": 0.984,
+      "block_id": "t1",
+      "line_count": 1,
+      "regions_px": [
+        [
+          112,
+          554,
+          380,
+          584
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9886,
+      "block_id": "t2",
+      "line_count": 20,
+      "regions_px": [
+        [
+          145,
+          618,
+          496,
+          640
+        ],
+        [
+          113,
+          643,
+          548,
+          669
+        ],
+        [
+          113,
+          673,
+          566,
+          695
+        ],
+        [
+          113,
+          701,
+          552,
+          723
+        ],
+        [
+          112,
+          730,
+          491,
+          750
+        ],
+        [
+          113,
+          756,
+          573,
+          778
+        ],
+        [
+          112,
+          784,
+          559,
+          804
+        ],
+        [
+          112,
+          812,
+          544,
+          832
+        ],
+        [
+          112,
+          840,
+          533,
+          860
+        ],
+        [
+          113,
+          864,
+          560,
+          890
+        ],
+        [
+          112,
+          891,
+          523,
+          917
+        ],
+        [
+          114,
+          924,
+          233,
+          942
+        ],
+        [
+          145,
+          950,
+          470,
+          972
+        ],
+        [
+          112,
+          975,
+          548,
+          999
+        ],
+        [
+          112,
+          1005,
+          556,
+          1027
+        ],
+        [
+          288,
+          1032,
+          545,
+          1054
+        ],
+        [
+          320,
+          1060,
+          511,
+          1082
+        ],
+        [
+          353,
+          1086,
+          552,
+          1110
+        ],
+        [
+          360,
+          1115,
+          568,
+          1137
+        ],
+        [
+          314,
+          1123,
+          328,
+          1138
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9922,
+      "block_id": "t3",
+      "line_count": 30,
+      "regions_px": [
+        [
+          626,
+          617,
+          941,
+          639
+        ],
+        [
+          663,
+          646,
+          1026,
+          668
+        ],
+        [
+          627,
+          673,
+          1051,
+          695
+        ],
+        [
+          627,
+          701,
+          1050,
+          723
+        ],
+        [
+          627,
+          729,
+          1089,
+          751
+        ],
+        [
+          627,
+          756,
+          1084,
+          778
+        ],
+        [
+          627,
+          784,
+          1084,
+          806
+        ],
+        [
+          627,
+          812,
+          915,
+          832
+        ],
+        [
+          660,
+          839,
+          1021,
+          861
+        ],
+        [
+          627,
+          866,
+          1062,
+          888
+        ],
+        [
+          626,
+          894,
+          1042,
+          916
+        ],
+        [
+          628,
+          923,
+          764,
+          941
+        ],
+        [
+          663,
+          950,
+          1062,
+          972
+        ],
+        [
+          626,
+          977,
+          1052,
+          999
+        ],
+        [
+          663,
+          1005,
+          1025,
+          1027
+        ],
+        [
+          627,
+          1031,
+          1061,
+          1053
+        ],
+        [
+          627,
+          1060,
+          1036,
+          1082
+        ],
+        [
+          627,
+          1087,
+          767,
+          1109
+        ],
+        [
+          662,
+          1114,
+          1059,
+          1136
+        ],
+        [
+          626,
+          1142,
+          807,
+          1164
+        ],
+        [
+          663,
+          1169,
+          1083,
+          1191
+        ],
+        [
+          629,
+          1201,
+          897,
+          1217
+        ],
+        [
+          663,
+          1223,
+          1030,
+          1248
+        ],
+        [
+          663,
+          1250,
+          1054,
+          1274
+        ],
+        [
+          627,
+          1280,
+          1031,
+          1302
+        ],
+        [
+          663,
+          1308,
+          836,
+          1330
+        ],
+        [
+          662,
+          1335,
+          981,
+          1357
+        ],
+        [
+          663,
+          1362,
+          1030,
+          1384
+        ],
+        [
+          662,
+          1391,
+          775,
+          1413
+        ],
+        [
+          641,
+          1420,
+          977,
+          1481
+        ]
+      ]
+    }
+  ],
+  "visual_blocks": [
+    {
+      "bbox_px": [
+        101,
+        0,
+        1225,
+        580
+      ],
+      "block_id": "v1",
+      "crop_path": "outputs/crops/t_cocuk_part_01_pages_0001_0003_p0001/v1.png"
+    },
+    {
+      "bbox_px": [
+        77,
+        1044,
+        641,
+        1520
+      ],
+      "block_id": "v2",
+      "crop_path": "outputs/crops/t_cocuk_part_01_pages_0001_0003_p0001/v2.png"
+    }
+  ]
+}

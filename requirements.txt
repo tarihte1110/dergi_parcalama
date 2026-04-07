@@ -1,0 +1,10 @@
+numpy>=1.26.0
+opencv-python>=4.9.0
+Pillow>=10.0.0
+scikit-image>=0.22.0
+scikit-learn>=1.4.0
+tqdm>=4.66.0
+pypdfium2>=4.30.0
+surya-ocr>=0.17.1
+transformers<5,>=4.56.1
+pytest>=8.0.0
