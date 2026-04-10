@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 from pathlib import Path
 
 from src.config import load_config
@@ -17,12 +18,15 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--page", type=int, default=None, help="If input is PDF, process only this 1-based page")
     parser.add_argument("--debug", action="store_true", help="Force debug outputs")
     parser.add_argument("--no-debug", action="store_true", help="Disable debug outputs")
+    parser.add_argument("--show-progress", action="store_true", help="Show third-party progress bars")
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
     config = load_config(args.config)
+    if config.runtime.suppress_progress_bars and not args.show_progress:
+        os.environ.setdefault("TQDM_DISABLE", "1")
     logger = setup_logger(log_file=args.output / "run.log")
     pipeline = DocumentPipeline(config=config, logger=logger)
 

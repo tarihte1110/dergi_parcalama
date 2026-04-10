@@ -7,7 +7,7 @@ from typing import Any
 
 import cv2
 
-from src.backends.ocr_base import OCRBackend
+from src.backends.ocr_base import OCRBackend, OCRLine
 from src.backends.paddle_ocr_backend import PaddleOCRBackend
 from src.backends.surya_backend import SuryaBackend
 from src.config import AppConfig
@@ -23,7 +23,7 @@ from src.pipeline.text_detection import detect_text_lines
 from src.pipeline.text_grouping import group_text_lines
 from src.pipeline.text_mask import build_text_mask
 from src.pipeline.text_postprocess import clean_ocr_text
-from src.pipeline.visual_candidates import extract_visual_candidates
+from src.pipeline.visual_candidates import build_visual_decisions, extract_visual_candidates
 from src.utils.geometry import iou
 from src.utils.io import prepare_output_dirs, write_json
 from src.utils.image_ops import read_image
@@ -61,13 +61,14 @@ class DocumentPipeline:
         source_ref: str,
         stem: str,
         debug_override: bool | None = None,
+        ocr_lines: list[OCRLine] | None = None,
     ) -> dict[str, Any]:
         outputs = prepare_output_dirs(output_root)
         h, w = image.shape[:2]
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
-        ocr_lines = detect_text_lines(image, self.backend)
-        text_blocks = group_text_lines(ocr_lines, gray, self.config.grouping)
+        page_ocr_lines = ocr_lines if ocr_lines is not None else detect_text_lines(image, self.backend)
+        text_blocks = group_text_lines(page_ocr_lines, gray, self.config.grouping)
         classify_text_blocks(text_blocks, self.config.classification)
         assign_article_groups(text_blocks, h, self.config.classification)
         text_blocks = self._cleanup_text_blocks(text_blocks)
@@ -76,12 +77,14 @@ class DocumentPipeline:
         text_mask = build_text_mask((h, w), text_blocks, self.config.mask)
         non_text_mask = build_non_text_mask(image, text_mask, self.config.mask)
         candidates, rejected_candidates = extract_visual_candidates(image, non_text_mask, text_mask, self.config.visual)
+        decisions = build_visual_decisions(candidates, image, non_text_mask, text_mask, self.config.visual)
 
         crops_page_dir = outputs["crops"] / stem
         crops_page_dir.mkdir(parents=True, exist_ok=True)
 
         visual_blocks: list[VisualBlock] = []
-        for idx, c in enumerate(candidates, start=1):
+        for idx, d in enumerate(decisions, start=1):
+            c = d.metrics
             crop_name = f"v{idx}.png"
             crop_path = crops_page_dir / crop_name
             padded_bbox = save_visual_crop(image, c.bbox, self.config.crop, crop_path)
@@ -92,6 +95,9 @@ class DocumentPipeline:
                     area_ratio=round(c.area_ratio, 6),
                     short_side_ratio=round(c.short_side_ratio, 6),
                     crop_path=str(crop_path.as_posix()),
+                    visual_class=d.visual_class,
+                    needs_review=d.needs_review,
+                    review_reasons=d.review_reasons,
                 )
             )
 
@@ -114,7 +120,16 @@ class DocumentPipeline:
 
         do_debug = self.config.runtime.debug if debug_override is None else debug_override
         if do_debug:
-            save_debug_views(outputs["debug"], stem, image, ocr_lines, text_blocks, text_mask, non_text_mask, candidates)
+            save_debug_views(
+                outputs["debug"],
+                stem,
+                image,
+                page_ocr_lines,
+                text_blocks,
+                text_mask,
+                non_text_mask,
+                candidates,
+            )
 
         return payload
 
@@ -178,6 +193,8 @@ class DocumentPipeline:
                     "block_id": b.block_id,
                     "bbox_px": list(b.bbox_px),
                     "crop_path": b.crop_path,
+                    "class": b.visual_class,
+                    "needs_review": b.needs_review,
                 }
             )
 
@@ -204,5 +221,17 @@ class DocumentPipeline:
         payload["rejected_visual_candidates"] = [
             {"bbox_px": list(r.bbox), "reason": r.reason, "area_ratio": round(r.area_ratio, 6)}
             for r in rejected_candidates
+        ]
+        payload["visual_blocks_debug"] = [
+            {
+                "block_id": b.block_id,
+                "class": b.visual_class,
+                "needs_review": b.needs_review,
+                "review_reasons": b.review_reasons,
+                "bbox_px": list(b.bbox_px),
+                "area_ratio": b.area_ratio,
+                "short_side_ratio": b.short_side_ratio,
+            }
+            for b in result.visual_blocks
         ]
         return payload

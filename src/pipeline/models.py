@@ -24,6 +24,9 @@ class VisualBlock:
     area_ratio: float
     short_side_ratio: float
     crop_path: str
+    visual_class: str = "framed_rectangular"
+    needs_review: bool = False
+    review_reasons: list[str] = field(default_factory=list)
 
 
 @dataclass

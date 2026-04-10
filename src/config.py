@@ -16,8 +16,12 @@ class OCRConfig:
     paddle_use_angle_cls: bool = True
     paddle_lang: str = "tr"
     surya_device: str = "mps"
-    surya_detection_batch_size: int = 1
-    surya_recognition_batch_size: int = 1
+    surya_detection_batch_size: int = 4
+    surya_recognition_batch_size: int = 12
+    surya_min_batch_size: int = 1
+    surya_enable_adaptive_batch: bool = True
+    surya_page_batch_size: int = 3
+    surya_suppress_internal_progress: bool = True
     surya_highres_scale: float = 1.35
     surya_highres_max_long_edge: int = 2800
 
@@ -66,11 +70,15 @@ class MaskConfig:
     non_text_close_ratio: float = 0.006
     white_threshold: int = 242
     low_saturation_threshold: int = 20
+    black_threshold: int = 18
+    background_std_threshold: float = 8.0
+    visual_texture_std_threshold: float = 12.0
+    visual_color_saturation_threshold: int = 34
 
 
 @dataclass(frozen=True)
 class VisualFilterConfig:
-    min_visual_area_ratio: float = 0.0125
+    min_visual_area_ratio: float = 0.0065
     min_visual_short_side_ratio: float = 0.05
     min_visual_width_px: int = 48
     min_visual_height_px: int = 48
@@ -78,9 +86,18 @@ class VisualFilterConfig:
     min_edge_density: float = 0.006
     min_fill_ratio: float = 0.09
     merge_iou_threshold: float = 0.25
-    max_visual_area_ratio: float = 0.65
+    max_visual_area_ratio: float = 0.82
     edge_touch_reject_area_ratio: float = 0.42
+    edge_touch_rescue_min_edge_density: float = 0.01
+    edge_touch_rescue_min_entropy: float = 3.3
+    edge_touch_rescue_max_area_ratio: float = 0.35
     max_text_overlap_ratio: float = 0.22
+    text_heavy_rescue_min_area_ratio: float = 0.012
+    text_heavy_rescue_min_edge_density: float = 0.012
+    text_heavy_rescue_min_entropy: float = 3.4
+    small_region_high_quality_area_ratio: float = 0.015
+    small_region_min_edge_density: float = 0.01
+    small_region_min_entropy: float = 3.0
     min_entropy: float = 2.0
     split_trigger_area_ratio: float = 0.75
     split_min_component_area_ratio: float = 0.0035
@@ -88,6 +105,48 @@ class VisualFilterConfig:
     split_saturation_threshold: int = 32
     split_seed_open_ratio: float = 0.002
     split_seed_close_ratio: float = 0.004
+    grid_split_rows: int = 3
+    grid_split_cols: int = 2
+    grid_split_expand_ratio: float = 0.02
+    grid_min_non_text_ratio: float = 0.22
+    grid_min_visual_score: float = 0.42
+    grid_component_min_cell_area_ratio: float = 0.02
+    grid_strip_span_ratio: float = 0.9
+    grid_strip_other_ratio: float = 0.55
+    fullpage_rescue_min_edge_density: float = 0.03
+    fullpage_rescue_min_entropy: float = 4.3
+    fullpage_rescue_max_white_ratio: float = 0.22
+    fullpage_rescue_max_text_ratio: float = 0.16
+    fragment_merge_gap_ratio: float = 0.018
+    fragment_merge_min_cross_overlap: float = 0.15
+    fragment_merge_max_union_area_ratio: float = 0.42
+    strip_span_ratio: float = 0.9
+    strip_other_ratio: float = 0.55
+    strip_projection_min_fill_ratio: float = 0.06
+    strip_projection_min_run_ratio: float = 0.08
+    strip_projection_pad_ratio: float = 0.01
+    fallback_texture_std_threshold: float = 18.0
+    fallback_saturation_threshold: int = 36
+    fallback_edge_open_ratio: float = 0.0018
+    fallback_edge_close_ratio: float = 0.0035
+    fallback_min_component_area_ratio: float = 0.0024
+    large_box_split_open_ratio: float = 0.0015
+    large_box_split_close_ratio: float = 0.003
+    large_box_split_min_component_area_ratio: float = 0.015
+    panel_merge_gap_ratio: float = 0.02
+    panel_merge_min_cross_overlap: float = 0.08
+    panel_merge_max_union_area_ratio: float = 0.72
+    panel_drop_small_inside_ratio: float = 0.8
+    panel_text_heavy_drop_ratio: float = 0.48
+    panel_text_heavy_max_edge_density: float = 0.018
+    panel_min_area_ratio: float = 0.009
+    small_textlike_max_area_ratio: float = 0.08
+    small_textlike_max_entropy: float = 4.5
+    small_textlike_max_edge_density: float = 0.03
+    half_rescue_min_side_area_ratio: float = 0.08
+    half_rescue_component_area_ratio: float = 0.008
+    half_rescue_texture_std_threshold: float = 11.0
+    half_rescue_saturation_threshold: int = 28
 
 
 @dataclass(frozen=True)
@@ -102,6 +161,7 @@ class RuntimeConfig:
     output_dir: str = "outputs"
     debug: bool = True
     write_debug_json: bool = True
+    suppress_progress_bars: bool = True
 
 
 @dataclass(frozen=True)

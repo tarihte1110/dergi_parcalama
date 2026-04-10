@@ -76,6 +76,25 @@ pip install -r requirements.txt
 python -m src.run_batch --input images --output outputs
 ```
 
+## Kurulum (Windows + venv)
+PowerShell:
+```powershell
+py -3 -m venv .venv
+.venv\Scripts\Activate.ps1
+python -m pip install --upgrade pip setuptools wheel
+pip install -r requirements.txt
+python -m src.run_batch --input images --output outputs
+```
+
+CMD:
+```bat
+py -3 -m venv .venv
+.venv\Scripts\activate.bat
+python -m pip install --upgrade pip setuptools wheel
+pip install -r requirements.txt
+python -m src.run_batch --input images --output outputs
+```
+
 ## Çalıştırma
 Batch (görsel klasörü):
 ```bash
@@ -105,6 +124,16 @@ python -m src.run_single --input inputs/t_cocuk_part_01_pages_0001_0003.pdf --pa
 Debug kapalı çalıştırma:
 ```bash
 python -m src.run_batch --input images --output outputs --no-debug
+```
+
+İlerleme barlarını aç (varsayılan sade terminal çıktısı):
+```bash
+python -m src.run_batch --input images --output outputs --show-progress
+```
+
+Hız odaklı PDF mikro-batch (Surya):
+```bash
+python -m src.run_batch --input inputs --output outputs --no-debug --ocr-page-batch 3
 ```
 
 ## JSON Çıkış Sözleşmesi
@@ -148,6 +177,12 @@ OCR kalite iyileştirme:
 - `text_correction.enabled = true`
 - Türkçe sözlük tabanlı post-correction (`src/pipeline/text_correction.py`)
 - İsterseniz `text_correction.lexicon_path` ile özel kelime listesi ekleyebilirsiniz.
+
+Surya performans ayarları (`src/config.py`):
+- `ocr.surya_detection_batch_size`
+- `ocr.surya_recognition_batch_size`
+- `ocr.surya_enable_adaptive_batch` (OOM olduğunda otomatik batch küçültme)
+- `ocr.surya_page_batch_size` (PDF sayfa mikro-batch boyutu)
 
 Gerekçe:
 - Hem relatif hem mutlak eşik kullanarak farklı çözünürlüklerde küçük/dekoratif adayları bastırmak.

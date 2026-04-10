@@ -3,3 +3,9 @@ inputs/
 __pycache__/
 *.pyc
 .DS_Store
+outputs_focus_round2/
+outputs_new_logic/
+outputs_regression_47/
+outputs_single_layout*/
+outputs_spread_fix*/
+outputs_target_fix*/
