@@ -26,10 +26,8 @@ def list_input_pdfs(input_dir: Path) -> list[Path]:
 def prepare_output_dirs(output_root: Path) -> dict[str, Path]:
     paths = {
         "root": output_root,
-        "json": output_root / "json",
-        "json_debug": output_root / "json_debug",
-        "crops": output_root / "crops",
-        "debug": output_root / "debug",
+        "pages": output_root / "pages",
+        "images": output_root / "images",
     }
     for p in paths.values():
         p.mkdir(parents=True, exist_ok=True)

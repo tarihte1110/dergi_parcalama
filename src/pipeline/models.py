@@ -27,6 +27,12 @@ class VisualBlock:
     visual_class: str = "framed_rectangular"
     needs_review: bool = False
     review_reasons: list[str] = field(default_factory=list)
+    headline: str = ""
+    headline_title: str = ""
+    headline_byline: str = ""
+    confidence: float = 0.0
+    page_side: str = "single"
+    panel_index: int = 1
 
 
 @dataclass

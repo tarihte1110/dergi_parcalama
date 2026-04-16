@@ -1,0 +1,103 @@
+{
+  "image_path": "inputs/t_cocuk.pdf#page=7",
+  "page_size": {
+    "height": 1594,
+    "width": 2416
+  },
+  "text_blocks": [
+    {
+      "article_group_id": "a_other_1",
+      "bbox_px": [
+        114,
+        145,
+        996,
+        1318
+      ],
+      "block_id": "t1",
+      "role": "other_text_group",
+      "text": "-Yine de 100 tane pire vardır sırtında. -Canım sen de ilacını alırsın, üç kuruş para. Hem ben çok iyi bir avcıyımdır, şu anda karşı sokağın köşesinde bir böcek yürüyor görebiliyor musun? Bak izmarit ile gazoz kapağının arasında. -Ayol orası 100 metreden fazla. -Ama biz görürüz, can sıkan bir mahluksa derhal imha. -Bir de kediler renk seçemez derler. -Oiş ayrı, bu iş ayrı, sizinki kadar renkli göremesek de en ufak kıpırtı kaçmaz. Yani evine fare mare giremez bundan sonra. -Demek ki boşuna kedigözü demiyorlar. Dur sana biraz süt vereyim, kaç şeker bu arada? -Şeker bizi bozar be abi, eee süt yerine ciğer alsam, mümkün müydü acaba? -Portakallı ördek de ister misin? Bi de sokak kedisi olacak, şuna bak. Aaa dur aklıma geldi, akşamdan biraz tavuk kalmıştı, onu getireyim sana. -İyi ama öyle ortaya da konmaz ki, şimdi benim bunu kapıp bir arabanın altında yemem lazım. -Aman pek de utangaç. -Neyse, katlanacağız artık, senin güzel hatırına."
+    },
+    {
+      "article_group_id": "a_other_2",
+      "bbox_px": [
+        1266,
+        150,
+        2307,
+        341
+      ],
+      "block_id": "t2",
+      "role": "other_text_group",
+      "text": "-Sizin için tembel diyorlar. -Kuru iftira, sadece 16 saatçik uyuyoruz, 8 koca saat ayakta. -Bir de nankörmüşsünüz, yanlış anlama da ben duyduğumu söylüyorum, namınız elin ağzında. -Biz rızkı Allahü tealadan bekliyoruz ondan, minnet etmiyoruz kullara."
+    },
+    {
+      "article_group_id": "a_other_3",
+      "bbox_px": [
+        2120,
+        554,
+        2315,
+        979
+      ],
+      "block_id": "t3",
+      "role": "other_text_group",
+      "text": "-Köpekler gibi sadık değilmişsiniz sonra? -Yavru iken evin neşesiydim, büyüdüm sokağa attılar. Halbuki ben sahibime bunu yapmazdım asla. Şimdi söyle, bu durumda biz mi nankör oluyoruz, yoksa..."
+    },
+    {
+      "article_group_id": "a_other_4",
+      "bbox_px": [
+        2289,
+        1482,
+        2355,
+        1544
+      ],
+      "block_id": "t4",
+      "role": "other_text_group",
+      "text": "13 3"
+    }
+  ],
+  "visual_blocks": [
+    {
+      "bbox_px": [
+        41,
+        43,
+        697,
+        661
+      ],
+      "block_id": "v1",
+      "class": "framed_photo",
+      "confidence": 0.42,
+      "crop_path": "outputs/images/t_cocuk_p0007/crops/v1.png",
+      "headline": {
+        "byline": "",
+        "full": "",
+        "title": ""
+      },
+      "layout": {
+        "page_side": "single",
+        "panel_index": 1
+      },
+      "needs_review": true
+    },
+    {
+      "bbox_px": [
+        826,
+        200,
+        2248,
+        1594
+      ],
+      "block_id": "v2",
+      "class": "background_photo_page",
+      "confidence": 0.8,
+      "crop_path": "outputs/images/t_cocuk_p0007/crops/v2.png",
+      "headline": {
+        "byline": "",
+        "full": "",
+        "title": ""
+      },
+      "layout": {
+        "page_side": "right",
+        "panel_index": 2
+      },
+      "needs_review": false
+    }
+  ]
+}

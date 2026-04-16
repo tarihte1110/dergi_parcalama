@@ -16,14 +16,18 @@ class OCRConfig:
     paddle_use_angle_cls: bool = True
     paddle_lang: str = "tr"
     surya_device: str = "mps"
-    surya_detection_batch_size: int = 4
-    surya_recognition_batch_size: int = 12
+    surya_detection_batch_size: int = 1
+    surya_recognition_batch_size: int = 4
     surya_min_batch_size: int = 1
     surya_enable_adaptive_batch: bool = True
-    surya_page_batch_size: int = 3
+    surya_page_batch_size: int = 1
     surya_suppress_internal_progress: bool = True
-    surya_highres_scale: float = 1.35
-    surya_highres_max_long_edge: int = 2800
+    surya_highres_scale: float = 1.12
+    surya_highres_max_long_edge: int = 2000
+    enable_second_pass: bool = True
+    second_pass_min_avg_conf: float = 0.62
+    second_pass_min_lines: int = 8
+    second_pass_merge_iou: float = 0.8
 
 
 @dataclass(frozen=True)
@@ -78,7 +82,8 @@ class MaskConfig:
 
 @dataclass(frozen=True)
 class VisualFilterConfig:
-    min_visual_area_ratio: float = 0.0065
+    simple_mode: bool = False
+    min_visual_area_ratio: float = 0.0125
     min_visual_short_side_ratio: float = 0.05
     min_visual_width_px: int = 48
     min_visual_height_px: int = 48
@@ -86,7 +91,7 @@ class VisualFilterConfig:
     min_edge_density: float = 0.006
     min_fill_ratio: float = 0.09
     merge_iou_threshold: float = 0.25
-    max_visual_area_ratio: float = 0.82
+    max_visual_area_ratio: float = 0.65
     edge_touch_reject_area_ratio: float = 0.42
     edge_touch_rescue_min_edge_density: float = 0.01
     edge_touch_rescue_min_entropy: float = 3.3
@@ -112,7 +117,7 @@ class VisualFilterConfig:
     grid_min_visual_score: float = 0.42
     grid_component_min_cell_area_ratio: float = 0.02
     grid_strip_span_ratio: float = 0.9
-    grid_strip_other_ratio: float = 0.55
+    grid_strip_other_ratio: float = 0.4
     fullpage_rescue_min_edge_density: float = 0.03
     fullpage_rescue_min_entropy: float = 4.3
     fullpage_rescue_max_white_ratio: float = 0.22
@@ -121,7 +126,7 @@ class VisualFilterConfig:
     fragment_merge_min_cross_overlap: float = 0.15
     fragment_merge_max_union_area_ratio: float = 0.42
     strip_span_ratio: float = 0.9
-    strip_other_ratio: float = 0.55
+    strip_other_ratio: float = 0.38
     strip_projection_min_fill_ratio: float = 0.06
     strip_projection_min_run_ratio: float = 0.08
     strip_projection_pad_ratio: float = 0.01
@@ -147,6 +152,13 @@ class VisualFilterConfig:
     half_rescue_component_area_ratio: float = 0.008
     half_rescue_texture_std_threshold: float = 11.0
     half_rescue_saturation_threshold: int = 28
+    max_visuals_full_photo_page: int = 3
+    max_visuals_collage_card_page: int = 6
+    max_visuals_comic_panel_page: int = 8
+    max_visuals_text_heavy_editorial_page: int = 3
+    parent_child_iou_merge: float = 0.62
+    parent_child_gap_ratio: float = 0.018
+    simple_mode_max_visuals: int = 4
 
 
 @dataclass(frozen=True)

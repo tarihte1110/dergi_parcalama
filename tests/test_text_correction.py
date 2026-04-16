@@ -26,3 +26,13 @@ def test_text_corrector_preserves_uppercase_tokens() -> None:
     c = TextCorrector.from_config(cfg)
     out = c.correct_text("IHLAS KOLEJI")
     assert out == "IHLAS KOLEJI"
+
+
+def test_text_corrector_fixes_y_v_confusions() -> None:
+    cfg = TextCorrectionConfig(enabled=True)
+    c = TextCorrector.from_config(cfg)
+    out = c.correct_text("Buvuklerimiz dive dedi, evimde kilom vok.")
+    low = out.lower()
+    assert "büyüklerimiz" in low
+    assert "diye" in low
+    assert "yok" in low

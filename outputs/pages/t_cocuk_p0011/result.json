@@ -1,0 +1,45 @@
+{
+  "image_path": "inputs/t_cocuk.pdf#page=11",
+  "page_size": {
+    "height": 1594,
+    "width": 2416
+  },
+  "text_blocks": [
+    {
+      "article_group_id": "a_other",
+      "bbox_px": [
+        58,
+        51,
+        2160,
+        1536
+      ],
+      "block_id": "t1",
+      "role": "other_text_group",
+      "text": "Cevaplart Neden her gece uyuruz? Her türlü adale çalışması yorgunluk oluşturur. Organik faaliyetlerin yürümesi için gerekli maddeler devamlı tüketilir. Yorgunluğu oluşturan da budur. Ayrıca organizmada biriken toksin artıkları, kaslarda ve sinir sistemi üzerinde etkilerini gösterir. Uyku sırasında ise organizma, dış etkilerin daha az tesirinde kalır. Vücut yeniden enerji tüketebilecek denge ve dinlemeye kavuşur. Sadikli beslenmek 9/2 İnsan neden ağlar? Aldığımız kötü bir haber, duyduğumuz bir acı ya da bizi kızdıracak bir olay birtakım duygusal tepkiler oluşturur. Beynin boz tabaka merkezlerinde işlenen refleksler, hıçkırık ve titremelerle beraber gözyaşı akmasına sebep olur. Beynin irade merkezi de, ıstırap taşkınlıklarını kontrol eder. Sinir yorgunluklarının da ağlama krizlerine yol açtığı bilinmektedir. Ağlamak insanı genel olarak rahatlatır. Yemek neden gereklidir? Besinler organizmada yanarak solunum, kalp, sindirim sistemi kaslarının aralıksız çalışması için gereken enerjiyi, bezlerin salgısını sağlarlar. Her türlü fizik ve beyin çalışması, enerji tüketimini arttırır. Bir insanın yaptığı işe göre günde 2.400 ila 6.000 kaloriye ihtiyacı vardır. Ne kadar yemek gerektiği, harcadığı enerjiye, atmosfer ısısına ve kişinin fizyolojik durumuna göre değişir. 20 Nokta Birleştirme 78. • 24 • 25 77. 73 74 75 76 • 29 • 30 • 31 70° 69 · • 32 43 • 58. • 33 42 ● • 34 35 41 • 40 ° • 37"
+    }
+  ],
+  "visual_blocks": [
+    {
+      "bbox_px": [
+        1260,
+        129,
+        2365,
+        1549
+      ],
+      "block_id": "v1",
+      "class": "background_photo_page",
+      "confidence": 0.8,
+      "crop_path": "outputs/images/t_cocuk_p0011/crops/v1.png",
+      "headline": {
+        "byline": "",
+        "full": "Nokta Birleştirme",
+        "title": "Nokta Birleştirme"
+      },
+      "layout": {
+        "page_side": "right",
+        "panel_index": 1
+      },
+      "needs_review": false
+    }
+  ]
+}

@@ -1,0 +1,280 @@
+{
+  "image_path": "inputs/t_cocuk.pdf#page=6",
+  "page_size": {
+    "height": 1594,
+    "width": 2416
+  },
+  "rejected_visual_candidates": [
+    {
+      "area_ratio": 1.0,
+      "bbox_px": [
+        0,
+        0,
+        2416,
+        1594
+      ],
+      "reason": "too_large_ratio"
+    },
+    {
+      "area_ratio": 1.0,
+      "bbox_px": [
+        0,
+        0,
+        2416,
+        1594
+      ],
+      "reason": "too_large_ratio"
+    },
+    {
+      "area_ratio": 0.726957,
+      "bbox_px": [
+        0,
+        70,
+        1837,
+        1594
+      ],
+      "reason": "too_large_ratio"
+    },
+    {
+      "area_ratio": 0.043085,
+      "bbox_px": [
+        1563,
+        657,
+        1959,
+        1076
+      ],
+      "reason": "text_heavy_region"
+    }
+  ],
+  "text_blocks": [
+    {
+      "article_group_id": "a_other",
+      "bbox_px": [
+        177,
+        73,
+        2317,
+        1459
+      ],
+      "block_id": "t1",
+      "role": "other_text_group",
+      "text": "Jayvandan (2) Hazırlayan: Mustafa Emre Kedi lâzım mı abi? -Kim okapımı tırmalayan -Abi dışarısı çok soğuk, izin ver ısınayım biraz. -Peki seni nasıl sepetleyeceğiz sonra, başlayacaksın yok ben bu evin kedisi olayım da filan. -He ya olayım mı? Ne iş olsa yaparım. -Sen ne işe yararsın ki. Yat uyu, zıp oyna. Kirlet batır, iş aç bana. -Lütfen yani. Bizim temizliğimizi bilmeyen yoktur, ayıptır söylemesi tuvalet için kum aradığımda parmak kadardım daba, Ömrümüzün üctə biri kadardım daha. Ömrümüzün üçte biri yalanmakla geçiyor, bak şu tüylerime, ahenkle raks ediyorlar."
+    }
+  ],
+  "text_blocks_debug": [
+    {
+      "avg_line_confidence": 0.8906,
+      "block_id": "t1",
+      "line_count": 1,
+      "regions_px": [
+        [
+          177,
+          73,
+          405,
+          161
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.8394,
+      "block_id": "t2",
+      "line_count": 2,
+      "regions_px": [
+        [
+          302,
+          252,
+          334,
+          280
+        ],
+        [
+          263,
+          313,
+          416,
+          329
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9737,
+      "block_id": "t3",
+      "line_count": 2,
+      "regions_px": [
+        [
+          2186,
+          533,
+          2317,
+          565
+        ],
+        [
+          2200,
+          563,
+          2297,
+          596
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9909,
+      "block_id": "t4",
+      "line_count": 1,
+      "regions_px": [
+        [
+          1308,
+          735,
+          1510,
+          770
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9966,
+      "block_id": "t5",
+      "line_count": 4,
+      "regions_px": [
+        [
+          1330,
+          771,
+          1487,
+          805
+        ],
+        [
+          1328,
+          804,
+          1491,
+          833
+        ],
+        [
+          1332,
+          834,
+          1485,
+          863
+        ],
+        [
+          1332,
+          863,
+          1483,
+          891
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9978,
+      "block_id": "t6",
+      "line_count": 7,
+      "regions_px": [
+        [
+          1640,
+          760,
+          1856,
+          794
+        ],
+        [
+          1600,
+          796,
+          1896,
+          832
+        ],
+        [
+          1620,
+          832,
+          1878,
+          867
+        ],
+        [
+          1622,
+          868,
+          1874,
+          900
+        ],
+        [
+          1638,
+          904,
+          1856,
+          938
+        ],
+        [
+          1606,
+          936,
+          1890,
+          968
+        ],
+        [
+          1699,
+          970,
+          1791,
+          995
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9932,
+      "block_id": "t7",
+      "line_count": 3,
+      "regions_px": [
+        [
+          1840,
+          1163,
+          2301,
+          1385
+        ],
+        [
+          1920,
+          1366,
+          2307,
+          1399
+        ],
+        [
+          1916,
+          1395,
+          2303,
+          1459
+        ]
+      ]
+    }
+  ],
+  "visual_blocks": [
+    {
+      "bbox_px": [
+        0,
+        0,
+        2416,
+        1594
+      ],
+      "block_id": "v1",
+      "class": "background_photo_page",
+      "confidence": 1.0,
+      "crop_path": "outputs/images/t_cocuk_p0006/crops/v1.png",
+      "headline": {
+        "byline": "",
+        "full": "",
+        "title": ""
+      },
+      "layout": {
+        "page_side": "single",
+        "panel_index": 1
+      },
+      "needs_review": false
+    }
+  ],
+  "visual_blocks_debug": [
+    {
+      "area_ratio": 1.0,
+      "bbox_px": [
+        0,
+        0,
+        2416,
+        1594
+      ],
+      "block_id": "v1",
+      "class": "background_photo_page",
+      "confidence": 1.0,
+      "headline": "",
+      "headline_byline": "",
+      "headline_title": "",
+      "needs_review": false,
+      "page_side": "single",
+      "panel_index": 1,
+      "review_reasons": [],
+      "short_side_ratio": 1.0
+    }
+  ]
+}

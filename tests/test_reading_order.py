@@ -37,3 +37,15 @@ def test_order_blocks_for_reading_row_major() -> None:
     ]
     ordered = order_blocks_for_reading(blocks, cfg)
     assert [b.text for b in ordered] == ["A", "B", "C"]
+
+
+def test_order_blocks_for_reading_spread_left_then_right() -> None:
+    cfg = GroupingConfig()
+    blocks = [
+        TextBlock("t1", "a1", "content", (1180, 80, 1450, 180), [(1180, 80, 1450, 180)], "R_TOP", []),
+        TextBlock("t2", "a2", "content", (120, 90, 420, 210), [(120, 90, 420, 210)], "L_TOP", []),
+        TextBlock("t3", "a3", "content", (140, 360, 430, 500), [(140, 360, 430, 500)], "L_BOTTOM", []),
+        TextBlock("t4", "a4", "content", (1210, 340, 1490, 490), [(1210, 340, 1490, 490)], "R_BOTTOM", []),
+    ]
+    ordered = order_blocks_for_reading(blocks, cfg)
+    assert [b.text for b in ordered] == ["L_TOP", "L_BOTTOM", "R_TOP", "R_BOTTOM"]

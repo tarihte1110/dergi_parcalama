@@ -63,15 +63,44 @@ def order_blocks_for_reading(blocks: list[TextBlock], cfg: GroupingConfig) -> li
     if len(blocks) <= 1:
         return blocks
 
-    heights = [max(1, b.bbox_px[3] - b.bbox_px[1]) for b in blocks]
-    median_h = float(np.median(heights))
-    band = max(24.0, cfg.block_row_band_ratio * median_h)
-    return sorted(
-        blocks,
-        key=lambda b: (
-            int(b.bbox_px[1] // band),
-            b.bbox_px[0],
-            b.bbox_px[1],
-            b.bbox_px[2],
-        ),
-    )
+    def _order_single_page(items: list[TextBlock]) -> list[TextBlock]:
+        # Keep block order primarily top-down so a started block is completed
+        # before jumping to a later-starting block.
+        heights = [max(1, b.bbox_px[3] - b.bbox_px[1]) for b in items]
+        median_h = float(np.median(heights))
+        band = min(120.0, max(24.0, cfg.block_row_band_ratio * median_h))
+        return sorted(
+            items,
+            key=lambda b: (
+                int(b.bbox_px[1] // band),
+                b.bbox_px[0],
+                b.bbox_px[1],
+                b.bbox_px[2],
+            ),
+        )
+
+    min_x = min(b.bbox_px[0] for b in blocks)
+    max_x = max(b.bbox_px[2] for b in blocks)
+    min_y = min(b.bbox_px[1] for b in blocks)
+    max_y = max(b.bbox_px[3] for b in blocks)
+    width = max(1, max_x - min_x)
+    height = max(1, max_y - min_y)
+    aspect = width / float(height)
+
+    # Spread-aware ordering:
+    # if page looks like two-page spread, finish the left page first,
+    # then continue with the right page; each side keeps top-down, left-right order.
+    if aspect >= 1.35:
+        mid_x = (min_x + max_x) / 2.0
+        left: list[TextBlock] = []
+        right: list[TextBlock] = []
+        for b in blocks:
+            cx = (b.bbox_px[0] + b.bbox_px[2]) / 2.0
+            if cx <= mid_x:
+                left.append(b)
+            else:
+                right.append(b)
+        if left and right:
+            return _order_single_page(left) + _order_single_page(right)
+
+    return _order_single_page(blocks)

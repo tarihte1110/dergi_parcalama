@@ -1,0 +1,475 @@
+{
+  "image_path": "inputs/t_cocuk.pdf#page=10",
+  "page_size": {
+    "height": 1594,
+    "width": 2416
+  },
+  "rejected_visual_candidates": [
+    {
+      "area_ratio": 1.0,
+      "bbox_px": [
+        0,
+        0,
+        2416,
+        1594
+      ],
+      "reason": "too_large_ratio"
+    },
+    {
+      "area_ratio": 1.0,
+      "bbox_px": [
+        0,
+        0,
+        2416,
+        1594
+      ],
+      "reason": "too_large_ratio"
+    },
+    {
+      "area_ratio": 1.0,
+      "bbox_px": [
+        0,
+        0,
+        2416,
+        1594
+      ],
+      "reason": "too_large_ratio"
+    }
+  ],
+  "text_blocks": [
+    {
+      "article_group_id": "a1",
+      "bbox_px": [
+        80,
+        50,
+        2275,
+        1432
+      ],
+      "block_id": "t1",
+      "content_text": "haylaz Mustafa Kocabaş HAYLAZ DA MICE TEMBELLESTI NAPSAM ACABA? HAYLAZ, ODANI TEMIZLEDIN MI?. HAYIR QUKULATALI PASTA) YER MISIN? 0 EVET! 3 wo 0 Buz kanatlı ak kelebek Kar tanesi kar tanesi Gökten düşen nazlı çiçek Kar tanesi kar tanesi Bulutlardan çıkar yola Yol kısadır, vermez mola Konuverir sağa sola Kar tanesi kar tanesi Kardeşleri geliverir Soğuk yüzü gülüverir Beyaz örtü oluverir Kar tanesi kar tanesi Çocuklara verir neşe Özlem olup girer düşe Dayanamaz pek güneşe Kar tanesi kar tanesi Emine Yılmaz Dereci",
+      "headline_text": "Kar Tanesi",
+      "role": "headline_group",
+      "text": "Kar Tanesi haylaz Mustafa Kocabaş HAYLAZ DA MICE TEMBELLESTI NAPSAM ACABA? HAYLAZ, ODANI TEMIZLEDIN MI?. HAYIR QUKULATALI PASTA) YER MISIN? 0 EVET! 3 wo 0 Buz kanatlı ak kelebek Kar tanesi kar tanesi Gökten düşen nazlı çiçek Kar tanesi kar tanesi Bulutlardan çıkar yola Yol kısadır, vermez mola Konuverir sağa sola Kar tanesi kar tanesi Kardeşleri geliverir Soğuk yüzü gülüverir Beyaz örtü oluverir Kar tanesi kar tanesi Çocuklara verir neşe Özlem olup girer düşe Dayanamaz pek güneşe Kar tanesi kar tanesi Emine Yılmaz Dereci"
+    },
+    {
+      "article_group_id": "a_other",
+      "bbox_px": [
+        193,
+        166,
+        1117,
+        1246
+      ],
+      "block_id": "t2",
+      "role": "other_text_group",
+      "text": "BÌR ANNENÎN GÖREVÎ POĞRU YOLU GÖSTERMEKTÎR... OKUL ÖDEVINI HAYIR! 0 CÓPLERI \" DÖKTÜN MÜ BARI? FIRINA GITTIN MI? EKMEK AL DEMIŞTIM... HAYIR! HAYIR! NEYSE YAPABİLECEĞİ BİR ŞEY BULDUM!"
+    }
+  ],
+  "text_blocks_debug": [
+    {
+      "avg_line_confidence": 0.9619,
+      "block_id": "t1",
+      "line_count": 3,
+      "regions_px": [
+        [
+          80,
+          50,
+          616,
+          154
+        ],
+        [
+          277,
+          185,
+          504,
+          240
+        ],
+        [
+          326,
+          233,
+          442,
+          284
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9479,
+      "block_id": "t2",
+      "line_count": 1,
+      "regions_px": [
+        [
+          692,
+          166,
+          971,
+          251
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9766,
+      "block_id": "t3",
+      "line_count": 3,
+      "regions_px": [
+        [
+          187,
+          508,
+          388,
+          537
+        ],
+        [
+          182,
+          534,
+          415,
+          566
+        ],
+        [
+          352,
+          597,
+          448,
+          627
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9646,
+      "block_id": "t4",
+      "line_count": 2,
+      "regions_px": [
+        [
+          744,
+          500,
+          936,
+          561
+        ],
+        [
+          805,
+          593,
+          916,
+          627
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.8557,
+      "block_id": "t5",
+      "line_count": 2,
+      "regions_px": [
+        [
+          704,
+          795,
+          722,
+          806
+        ],
+        [
+          724,
+          857,
+          885,
+          945
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9689,
+      "block_id": "t6",
+      "line_count": 2,
+      "regions_px": [
+        [
+          193,
+          840,
+          469,
+          895
+        ],
+        [
+          281,
+          917,
+          380,
+          950
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9884,
+      "block_id": "t7",
+      "line_count": 1,
+      "regions_px": [
+        [
+          688,
+          1038,
+          823,
+          1088
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.8346,
+      "block_id": "t8",
+      "line_count": 3,
+      "regions_px": [
+        [
+          239,
+          1181,
+          501,
+          1238
+        ],
+        [
+          203,
+          1241,
+          229,
+          1255
+        ],
+        [
+          362,
+          1284,
+          471,
+          1324
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9668,
+      "block_id": "t9",
+      "line_count": 1,
+      "regions_px": [
+        [
+          820,
+          1177,
+          1117,
+          1246
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.6992,
+      "block_id": "t10",
+      "line_count": 3,
+      "regions_px": [
+        [
+          251,
+          1341,
+          283,
+          1365
+        ],
+        [
+          230,
+          1379,
+          283,
+          1420
+        ],
+        [
+          203,
+          1417,
+          225,
+          1432
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9985,
+      "block_id": "t11",
+      "line_count": 1,
+      "regions_px": [
+        [
+          2009,
+          229,
+          2275,
+          276
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9943,
+      "block_id": "t12",
+      "line_count": 17,
+      "regions_px": [
+        [
+          2017,
+          317,
+          2248,
+          341
+        ],
+        [
+          2019,
+          346,
+          2226,
+          368
+        ],
+        [
+          2017,
+          371,
+          2271,
+          397
+        ],
+        [
+          2019,
+          397,
+          2226,
+          421
+        ],
+        [
+          2017,
+          451,
+          2240,
+          476
+        ],
+        [
+          2017,
+          476,
+          2267,
+          502
+        ],
+        [
+          2019,
+          504,
+          2220,
+          529
+        ],
+        [
+          2019,
+          530,
+          2226,
+          554
+        ],
+        [
+          2019,
+          582,
+          2208,
+          609
+        ],
+        [
+          2017,
+          609,
+          2232,
+          635
+        ],
+        [
+          2019,
+          635,
+          2210,
+          662
+        ],
+        [
+          2019,
+          660,
+          2228,
+          685
+        ],
+        [
+          2019,
+          713,
+          2226,
+          739
+        ],
+        [
+          2017,
+          740,
+          2242,
+          767
+        ],
+        [
+          2019,
+          768,
+          2265,
+          794
+        ],
+        [
+          2019,
+          794,
+          2228,
+          818
+        ],
+        [
+          2017,
+          849,
+          2210,
+          871
+        ]
+      ]
+    }
+  ],
+  "visual_blocks": [
+    {
+      "bbox_px": [
+        44,
+        103,
+        1168,
+        1538
+      ],
+      "block_id": "v1",
+      "class": "comic_panel_page",
+      "confidence": 0.72,
+      "crop_path": "outputs/images/t_cocuk_p0010/crops/v1.png",
+      "headline": {
+        "byline": "",
+        "full": "Kar Tanesi",
+        "title": "Kar Tanesi"
+      },
+      "layout": {
+        "page_side": "left",
+        "panel_index": 1
+      },
+      "needs_review": false
+    },
+    {
+      "bbox_px": [
+        1835,
+        594,
+        2358,
+        1438
+      ],
+      "block_id": "v2",
+      "class": "comic_panel_page",
+      "confidence": 0.72,
+      "crop_path": "outputs/images/t_cocuk_p0010/crops/v2.png",
+      "headline": {
+        "byline": "",
+        "full": "",
+        "title": ""
+      },
+      "layout": {
+        "page_side": "right",
+        "panel_index": 2
+      },
+      "needs_review": false
+    }
+  ],
+  "visual_blocks_debug": [
+    {
+      "area_ratio": 0.418825,
+      "bbox_px": [
+        44,
+        103,
+        1168,
+        1538
+      ],
+      "block_id": "v1",
+      "class": "comic_panel_page",
+      "confidence": 0.72,
+      "headline": "Kar Tanesi",
+      "headline_byline": "",
+      "headline_title": "Kar Tanesi",
+      "needs_review": false,
+      "page_side": "left",
+      "panel_index": 1,
+      "review_reasons": [],
+      "short_side_ratio": 0.465232
+    },
+    {
+      "area_ratio": 0.11462,
+      "bbox_px": [
+        1835,
+        594,
+        2358,
+        1438
+      ],
+      "block_id": "v2",
+      "class": "comic_panel_page",
+      "confidence": 0.72,
+      "headline": "",
+      "headline_byline": "",
+      "headline_title": "",
+      "needs_review": false,
+      "page_side": "right",
+      "panel_index": 2,
+      "review_reasons": [],
+      "short_side_ratio": 0.216474
+    }
+  ]
+}

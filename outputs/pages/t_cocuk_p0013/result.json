@@ -1,0 +1,73 @@
+{
+  "image_path": "inputs/t_cocuk.pdf#page=13",
+  "page_size": {
+    "height": 1594,
+    "width": 2416
+  },
+  "text_blocks": [
+    {
+      "article_group_id": "a2",
+      "bbox_px": [
+        130,
+        149,
+        1145,
+        1483
+      ],
+      "block_id": "t1",
+      "content_text": "'fıstık gibi\" veya \"bomba gibi\" benzetmelerini aynı durumlarda kullanmak tesadüfi değil. Zira fıstık hiç de sandığınız kadar masum değil, dinamit yapımında kullanılan malzemelerden yalnızca biri.... Dünya genelinde her gün yarım milyarı aşkın tweet atılıyor ve bu tweetler Amerikan Kongre Kütüphanesi tarafından 2006 yılından bu yana özenle arşivleniyor.. Yalan söylendiğinde insan burnundaki ısı artar ve buna Pinokyo efekti denir... NEREDEN CIKARIYORSUNUZ? Bir insan hayatı boyunca ortalama 22 kilogram deri kaybediyor. Çünkü derimiz yenileniyor. En büyük kitap XVII asırda yayınlanmış ve Berlin kütüphanesinde bulunan coğrafya atlası sayılır. (yüksekliği 2 metre, eni 1 metre) Genellikle soğuk bir odada uyumak kâbus görme ihtimalini arttırır..",
+      "headline_text": "YALAN SÖYLEDİĞİMİ",
+      "role": "headline_group",
+      "text": "YALAN SÖYLEDİĞİMİ 'fıstık gibi\" veya \"bomba gibi\" benzetmelerini aynı durumlarda kullanmak tesadüfi değil. Zira fıstık hiç de sandığınız kadar masum değil, dinamit yapımında kullanılan malzemelerden yalnızca biri.... Dünya genelinde her gün yarım milyarı aşkın tweet atılıyor ve bu tweetler Amerikan Kongre Kütüphanesi tarafından 2006 yılından bu yana özenle arşivleniyor.. Yalan söylendiğinde insan burnundaki ısı artar ve buna Pinokyo efekti denir... NEREDEN CIKARIYORSUNUZ? Bir insan hayatı boyunca ortalama 22 kilogram deri kaybediyor. Çünkü derimiz yenileniyor. En büyük kitap XVII asırda yayınlanmış ve Berlin kütüphanesinde bulunan coğrafya atlası sayılır. (yüksekliği 2 metre, eni 1 metre) Genellikle soğuk bir odada uyumak kâbus görme ihtimalini arttırır.."
+    },
+    {
+      "article_group_id": "a1",
+      "bbox_px": [
+        91,
+        397,
+        529,
+        946
+      ],
+      "block_id": "t2",
+      "content_text": "Karat! Evet, elmas ve nice değerli taşın ölçü birimi karat... Nereden geliyor bu güvenilirlik derseniz, keçiboynuzu tohumlarından geliyor. Dünyadaki tüm keçiboynuzu tohumlarının ağırlığı aynıdır ve bu hiç değişmez....",
+      "headline_text": "Mustafa Emre",
+      "role": "headline_group",
+      "text": "Mustafa Emre Karat! Evet, elmas ve nice değerli taşın ölçü birimi karat... Nereden geliyor bu güvenilirlik derseniz, keçiboynuzu tohumlarından geliyor. Dünyadaki tüm keçiboynuzu tohumlarının ağırlığı aynıdır ve bu hiç değişmez...."
+    },
+    {
+      "article_group_id": "a_other",
+      "bbox_px": [
+        1322,
+        50,
+        2136,
+        349
+      ],
+      "block_id": "t3",
+      "role": "other_text_group",
+      "text": "Labirent Bulmaca Oynamak için yumağa ulaşmak istiyorum. Bana yardımcı olur musunuz?"
+    }
+  ],
+  "visual_blocks": [
+    {
+      "bbox_px": [
+        1190,
+        0,
+        2416,
+        1594
+      ],
+      "block_id": "v1",
+      "class": "background_photo_page",
+      "confidence": 0.8,
+      "crop_path": "outputs/images/t_cocuk_p0013/crops/v1.png",
+      "headline": {
+        "byline": "",
+        "full": "Labirent Bulmaca",
+        "title": "Labirent Bulmaca"
+      },
+      "layout": {
+        "page_side": "right",
+        "panel_index": 1
+      },
+      "needs_review": false
+    }
+  ]
+}

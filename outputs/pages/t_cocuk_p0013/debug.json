@@ -1,0 +1,485 @@
+{
+  "image_path": "inputs/t_cocuk.pdf#page=13",
+  "page_size": {
+    "height": 1594,
+    "width": 2416
+  },
+  "rejected_visual_candidates": [
+    {
+      "area_ratio": 1.0,
+      "bbox_px": [
+        0,
+        0,
+        2416,
+        1594
+      ],
+      "reason": "too_large_ratio"
+    },
+    {
+      "area_ratio": 1.0,
+      "bbox_px": [
+        0,
+        0,
+        2416,
+        1594
+      ],
+      "reason": "too_large_ratio"
+    },
+    {
+      "area_ratio": 1.0,
+      "bbox_px": [
+        0,
+        0,
+        2416,
+        1594
+      ],
+      "reason": "too_large_ratio"
+    }
+  ],
+  "text_blocks": [
+    {
+      "article_group_id": "a2",
+      "bbox_px": [
+        130,
+        149,
+        1145,
+        1483
+      ],
+      "block_id": "t1",
+      "content_text": "'fıstık gibi\" veya \"bomba gibi\" benzetmelerini aynı durumlarda kullanmak tesadüfi değil. Zira fıstık hiç de sandığınız kadar masum değil, dinamit yapımında kullanılan malzemelerden yalnızca biri.... Dünya genelinde her gün yarım milyarı aşkın tweet atılıyor ve bu tweetler Amerikan Kongre Kütüphanesi tarafından 2006 yılından bu yana özenle arşivleniyor.. Yalan söylendiğinde insan burnundaki ısı artar ve buna Pinokyo efekti denir... NEREDEN CIKARIYORSUNUZ? Bir insan hayatı boyunca ortalama 22 kilogram deri kaybediyor. Çünkü derimiz yenileniyor. En büyük kitap XVII asırda yayınlanmış ve Berlin kütüphanesinde bulunan coğrafya atlası sayılır. (yüksekliği 2 metre, eni 1 metre) Genellikle soğuk bir odada uyumak kâbus görme ihtimalini arttırır..",
+      "headline_text": "YALAN SÖYLEDİĞİMİ",
+      "role": "headline_group",
+      "text": "YALAN SÖYLEDİĞİMİ 'fıstık gibi\" veya \"bomba gibi\" benzetmelerini aynı durumlarda kullanmak tesadüfi değil. Zira fıstık hiç de sandığınız kadar masum değil, dinamit yapımında kullanılan malzemelerden yalnızca biri.... Dünya genelinde her gün yarım milyarı aşkın tweet atılıyor ve bu tweetler Amerikan Kongre Kütüphanesi tarafından 2006 yılından bu yana özenle arşivleniyor.. Yalan söylendiğinde insan burnundaki ısı artar ve buna Pinokyo efekti denir... NEREDEN CIKARIYORSUNUZ? Bir insan hayatı boyunca ortalama 22 kilogram deri kaybediyor. Çünkü derimiz yenileniyor. En büyük kitap XVII asırda yayınlanmış ve Berlin kütüphanesinde bulunan coğrafya atlası sayılır. (yüksekliği 2 metre, eni 1 metre) Genellikle soğuk bir odada uyumak kâbus görme ihtimalini arttırır.."
+    },
+    {
+      "article_group_id": "a1",
+      "bbox_px": [
+        91,
+        397,
+        529,
+        946
+      ],
+      "block_id": "t2",
+      "content_text": "Karat! Evet, elmas ve nice değerli taşın ölçü birimi karat... Nereden geliyor bu güvenilirlik derseniz, keçiboynuzu tohumlarından geliyor. Dünyadaki tüm keçiboynuzu tohumlarının ağırlığı aynıdır ve bu hiç değişmez....",
+      "headline_text": "Mustafa Emre",
+      "role": "headline_group",
+      "text": "Mustafa Emre Karat! Evet, elmas ve nice değerli taşın ölçü birimi karat... Nereden geliyor bu güvenilirlik derseniz, keçiboynuzu tohumlarından geliyor. Dünyadaki tüm keçiboynuzu tohumlarının ağırlığı aynıdır ve bu hiç değişmez...."
+    },
+    {
+      "article_group_id": "a_other",
+      "bbox_px": [
+        1322,
+        50,
+        2136,
+        349
+      ],
+      "block_id": "t3",
+      "role": "other_text_group",
+      "text": "Labirent Bulmaca Oynamak için yumağa ulaşmak istiyorum. Bana yardımcı olur musunuz?"
+    }
+  ],
+  "text_blocks_debug": [
+    {
+      "avg_line_confidence": 0.9105,
+      "block_id": "t1",
+      "line_count": 13,
+      "regions_px": [
+        [
+          599,
+          149,
+          811,
+          182
+        ],
+        [
+          591,
+          186,
+          777,
+          218
+        ],
+        [
+          591,
+          222,
+          855,
+          255
+        ],
+        [
+          591,
+          257,
+          899,
+          287
+        ],
+        [
+          589,
+          294,
+          912,
+          326
+        ],
+        [
+          587,
+          330,
+          905,
+          363
+        ],
+        [
+          589,
+          365,
+          1032,
+          399
+        ],
+        [
+          591,
+          402,
+          1052,
+          434
+        ],
+        [
+          589,
+          438,
+          674,
+          470
+        ],
+        [
+          577,
+          514,
+          1099,
+          546
+        ],
+        [
+          577,
+          549,
+          1026,
+          579
+        ],
+        [
+          579,
+          585,
+          1133,
+          617
+        ],
+        [
+          577,
+          621,
+          1145,
+          651
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9964,
+      "block_id": "t2",
+      "line_count": 1,
+      "regions_px": [
+        [
+          199,
+          397,
+          308,
+          413
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.946,
+      "block_id": "t3",
+      "line_count": 12,
+      "regions_px": [
+        [
+          91,
+          516,
+          183,
+          548
+        ],
+        [
+          102,
+          555,
+          175,
+          582
+        ],
+        [
+          100,
+          591,
+          189,
+          618
+        ],
+        [
+          100,
+          625,
+          203,
+          654
+        ],
+        [
+          101,
+          650,
+          282,
+          696
+        ],
+        [
+          99,
+          663,
+          485,
+          734
+        ],
+        [
+          101,
+          694,
+          529,
+          773
+        ],
+        [
+          106,
+          734,
+          496,
+          805
+        ],
+        [
+          107,
+          775,
+          440,
+          843
+        ],
+        [
+          113,
+          808,
+          478,
+          880
+        ],
+        [
+          115,
+          846,
+          454,
+          914
+        ],
+        [
+          123,
+          905,
+          300,
+          946
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.957,
+      "block_id": "t4",
+      "line_count": 5,
+      "regions_px": [
+        [
+          928,
+          837,
+          1006,
+          865
+        ],
+        [
+          831,
+          872,
+          1101,
+          908
+        ],
+        [
+          829,
+          906,
+          1107,
+          940
+        ],
+        [
+          849,
+          945,
+          1087,
+          978
+        ],
+        [
+          871,
+          980,
+          1061,
+          1012
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9541,
+      "block_id": "t5",
+      "line_count": 10,
+      "regions_px": [
+        [
+          682,
+          1036,
+          742,
+          1049
+        ],
+        [
+          654,
+          1052,
+          773,
+          1065
+        ],
+        [
+          442,
+          1100,
+          1109,
+          1197
+        ],
+        [
+          459,
+          1128,
+          1087,
+          1238
+        ],
+        [
+          130,
+          1260,
+          483,
+          1292
+        ],
+        [
+          161,
+          1297,
+          452,
+          1329
+        ],
+        [
+          136,
+          1332,
+          477,
+          1364
+        ],
+        [
+          157,
+          1368,
+          452,
+          1400
+        ],
+        [
+          140,
+          1404,
+          471,
+          1437
+        ],
+        [
+          255,
+          1442,
+          354,
+          1470
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9864,
+      "block_id": "t6",
+      "line_count": 1,
+      "regions_px": [
+        [
+          652,
+          1018,
+          777,
+          1033
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9159,
+      "block_id": "t7",
+      "line_count": 5,
+      "regions_px": [
+        [
+          855,
+          1309,
+          992,
+          1336
+        ],
+        [
+          811,
+          1344,
+          1034,
+          1376
+        ],
+        [
+          821,
+          1380,
+          1024,
+          1410
+        ],
+        [
+          813,
+          1417,
+          1034,
+          1449
+        ],
+        [
+          871,
+          1453,
+          976,
+          1483
+        ]
+      ]
+    },
+    {
+      "avg_line_confidence": 0.9895,
+      "block_id": "t8",
+      "line_count": 3,
+      "regions_px": [
+        [
+          1391,
+          50,
+          2136,
+          171
+        ],
+        [
+          1322,
+          235,
+          1667,
+          316
+        ],
+        [
+          1331,
+          308,
+          1658,
+          349
+        ]
+      ]
+    }
+  ],
+  "visual_blocks": [
+    {
+      "bbox_px": [
+        1190,
+        0,
+        2416,
+        1594
+      ],
+      "block_id": "v1",
+      "class": "background_photo_page",
+      "confidence": 0.8,
+      "crop_path": "outputs/images/t_cocuk_p0013/crops/v1.png",
+      "headline": {
+        "byline": "",
+        "full": "Labirent Bulmaca",
+        "title": "Labirent Bulmaca"
+      },
+      "layout": {
+        "page_side": "right",
+        "panel_index": 1
+      },
+      "needs_review": false
+    }
+  ],
+  "visual_blocks_debug": [
+    {
+      "area_ratio": 0.50745,
+      "bbox_px": [
+        1190,
+        0,
+        2416,
+        1594
+      ],
+      "block_id": "v1",
+      "class": "background_photo_page",
+      "confidence": 0.8,
+      "headline": "Labirent Bulmaca",
+      "headline_byline": "",
+      "headline_title": "Labirent Bulmaca",
+      "needs_review": false,
+      "page_side": "right",
+      "panel_index": 1,
+      "review_reasons": [],
+      "short_side_ratio": 0.50745
+    }
+  ]
+}

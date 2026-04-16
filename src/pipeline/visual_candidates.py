@@ -129,10 +129,20 @@ def keep_candidate(metrics: CandidateMetrics, cfg: VisualFilterConfig, page_size
         return False, "too_long_strip"
     if wr >= 0.97 and hr >= 0.97:
         return False, "full_page_like"
-    if wr > cfg.strip_span_ratio and hr < cfg.strip_other_ratio:
-        return False, "too_canvas_strip"
-    if hr > cfg.strip_span_ratio and wr < cfg.strip_other_ratio:
-        return False, "too_canvas_strip"
+    is_canvas_strip = (wr > cfg.strip_span_ratio and hr < cfg.strip_other_ratio) or (
+        hr > cfg.strip_span_ratio and wr < cfg.strip_other_ratio
+    )
+    if is_canvas_strip:
+        # Rescue real visual bands (e.g., wide story illustrations) that still carry strong visual signal.
+        strip_rescue = (
+            metrics.area_ratio >= 0.08
+            and metrics.area_ratio <= 0.45
+            and metrics.edge_density >= max(0.008, cfg.min_edge_density * 1.2)
+            and metrics.entropy >= 3.4
+            and metrics.fill_ratio >= 0.18
+        )
+        if not strip_rescue:
+            return False, "too_canvas_strip"
     edge_touches = _touches_edges(metrics.bbox, w, h)
     if edge_touches >= 3 and metrics.area_ratio > cfg.edge_touch_reject_area_ratio:
         edge_touch_rescue = (
@@ -263,6 +273,111 @@ def _merge_fragmented_boxes(boxes: list[BBox], page_size: tuple[int, int], cfg: 
     return current
 
 
+def _bbox_shape_ratios(bbox: BBox, page_size: tuple[int, int]) -> tuple[float, float, float]:
+    h, w = page_size
+    bw = max(1, bbox[2] - bbox[0])
+    bh = max(1, bbox[3] - bbox[1])
+    wr = bw / float(max(1, w))
+    hr = bh / float(max(1, h))
+    ar = bbox_area(bbox) / float(max(1, h * w))
+    return wr, hr, ar
+
+
+def _is_full_width_band(bbox: BBox, page_size: tuple[int, int]) -> bool:
+    wr, hr, ar = _bbox_shape_ratios(bbox, page_size)
+    horizontal_band = wr >= 0.9 and hr <= 0.45 and ar >= 0.18
+    vertical_band = hr >= 0.9 and wr <= 0.45 and ar >= 0.18
+    return horizontal_band or vertical_band
+
+
+def _extract_center_focus_boxes(
+    image_bgr: np.ndarray,
+    text_mask: np.ndarray,
+    page_size: tuple[int, int],
+) -> list[BBox]:
+    h, w = page_size
+    gray = cv2.cvtColor(image_bgr, cv2.COLOR_BGR2GRAY)
+    hsv = cv2.cvtColor(image_bgr, cv2.COLOR_BGR2HSV)
+    edges = cv2.Canny(gray, 80, 160) > 0
+    mean = cv2.GaussianBlur(gray.astype(np.float32), (0, 0), 2.5)
+    mean_sq = cv2.GaussianBlur((gray.astype(np.float32) ** 2), (0, 0), 2.5)
+    std = np.sqrt(np.maximum(0.0, mean_sq - (mean * mean)))
+    sat = hsv[:, :, 1]
+
+    text_dilate = cv2.dilate(
+        (text_mask > 0).astype(np.uint8) * 255,
+        cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (11, 11)),
+        iterations=1,
+    ) > 0
+
+    feat = (edges | (std >= 10.0) | (sat >= 24)) & (~text_dilate)
+    if not np.any(feat):
+        return []
+
+    # Keep search around the main composition region.
+    x1 = int(round(w * 0.05))
+    x2 = int(round(w * 0.95))
+    y1 = int(round(h * 0.05))
+    y2 = int(round(h * 0.95))
+    roi = feat[y1:y2, x1:x2].astype(np.uint8) * 255
+    roi = cv2.morphologyEx(
+        roi,
+        cv2.MORPH_CLOSE,
+        cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7, 7)),
+        iterations=1,
+    )
+    contours, _ = cv2.findContours(roi, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    if not contours:
+        return []
+
+    page_area = float(max(1, h * w))
+    center_x = w / 2.0
+    center_y = h / 2.0
+    ranked: list[tuple[float, BBox]] = []
+    for contour in contours:
+        rx, ry, bw, bh = cv2.boundingRect(contour)
+        bbox = clip_bbox((x1 + rx, y1 + ry, x1 + rx + bw, y1 + ry + bh), w, h)
+        wr, hr, ar = _bbox_shape_ratios(bbox, (h, w))
+        if ar < 0.045 or ar > 0.62:
+            continue
+        if _is_full_width_band(bbox, (h, w)):
+            continue
+        bx1, by1, bx2, by2 = bbox
+        patch = gray[by1:by2, bx1:bx2]
+        if patch.size == 0:
+            continue
+        entropy = _entropy(patch)
+        edge_patch = cv2.Canny(patch, 80, 160)
+        edge_den = float(np.count_nonzero(edge_patch > 0)) / float(max(1, edge_patch.size))
+        tpatch = text_mask[by1:by2, bx1:bx2]
+        text_overlap = float(np.count_nonzero(tpatch > 0)) / float(max(1, tpatch.size))
+        if text_overlap > 0.28:
+            continue
+        cx = (bx1 + bx2) / 2.0
+        cy = (by1 + by2) / 2.0
+        dist = ((cx - center_x) ** 2 + (cy - center_y) ** 2) ** 0.5 / max(1.0, (w**2 + h**2) ** 0.5)
+        score = (
+            1.4 * min(1.0, edge_den / 0.03)
+            + 1.2 * min(1.0, entropy / 5.0)
+            + 0.6 * min(1.0, ar / 0.35)
+            - 0.9 * min(1.0, text_overlap / 0.28)
+            - 0.8 * dist
+        )
+        ranked.append((score, bbox))
+
+    if not ranked:
+        return []
+    ranked.sort(key=lambda x: x[0], reverse=True)
+    out: list[BBox] = []
+    for _, bbox in ranked:
+        if any(iou(bbox, b) > 0.7 for b in out):
+            continue
+        out.append(bbox)
+        if len(out) >= 2:
+            break
+    return out
+
+
 def _coalesce_visual_panels(
     candidates: list[CandidateMetrics],
     image_bgr: np.ndarray,
@@ -328,6 +443,10 @@ def _coalesce_visual_panels(
                     if not should_merge:
                         continue
                     uni = bbox_union([cur, other])
+                    u_wr, u_hr, u_ar = _bbox_shape_ratios(uni, (h, w))
+                    # Prevent coalescing into page-wide horizontal/vertical bands.
+                    if (u_wr >= 0.95 and u_hr <= 0.82 and u_ar >= 0.24) or (u_hr >= 0.95 and u_wr <= 0.82 and u_ar >= 0.24):
+                        continue
                     if (bbox_area(uni) / page_area) > cfg.panel_merge_max_union_area_ratio:
                         continue
                     cur = uni
@@ -894,12 +1013,515 @@ def _page_visual_stats(image_bgr: np.ndarray) -> tuple[float, float, float]:
     return edge_density, ent, white_ratio
 
 
-def extract_visual_candidates(
+def _is_full_page_like_bbox(bbox: BBox, page_size: tuple[int, int]) -> bool:
+    h, w = page_size
+    bw = max(1, bbox[2] - bbox[0])
+    bh = max(1, bbox[3] - bbox[1])
+    wr = bw / float(max(1, w))
+    hr = bh / float(max(1, h))
+    return wr >= 0.97 and hr >= 0.97
+
+
+def _is_strip_like_bbox(bbox: BBox, page_size: tuple[int, int], cfg: VisualFilterConfig) -> bool:
+    h, w = page_size
+    bw = max(1, bbox[2] - bbox[0])
+    bh = max(1, bbox[3] - bbox[1])
+    wr = bw / float(max(1, w))
+    hr = bh / float(max(1, h))
+    return (wr > cfg.strip_span_ratio and hr < cfg.strip_other_ratio) or (
+        hr > cfg.strip_span_ratio and wr < cfg.strip_other_ratio
+    )
+
+
+def _bbox_non_text_fill_ratio(non_text_mask: np.ndarray, bbox: BBox) -> float:
+    x1, y1, x2, y2 = bbox
+    patch = non_text_mask[y1:y2, x1:x2]
+    if patch.size == 0:
+        return 0.0
+    return float(np.count_nonzero(patch > 0)) / float(max(1, patch.size))
+
+
+def _simple_candidate_score(metrics: CandidateMetrics, page_size: tuple[int, int]) -> float:
+    h, w = page_size
+    x1, y1, x2, y2 = metrics.bbox
+    bw = max(1, x2 - x1)
+    bh = max(1, y2 - y1)
+    wr = bw / float(max(1, w))
+    hr = bh / float(max(1, h))
+    area = metrics.area_ratio
+
+    score = (
+        2.0 * min(1.0, metrics.edge_density / 0.03)
+        + 1.8 * min(1.0, metrics.entropy / 5.2)
+        + 0.9 * min(1.0, metrics.fill_ratio / 0.45)
+        - 1.2 * min(1.0, metrics.text_overlap_ratio / 0.55)
+    )
+    if 0.03 <= area <= 0.45:
+        score += 0.6
+    elif area > 0.62:
+        score -= 1.5
+    if (wr > 0.92 and hr < 0.33) or (hr > 0.92 and wr < 0.33):
+        score -= 1.2
+    return float(score)
+
+
+def _extract_framed_candidate_boxes(
+    image_bgr: np.ndarray,
+    non_text_mask: np.ndarray,
+    text_mask: np.ndarray,
+    cfg: VisualFilterConfig,
+) -> list[BBox]:
+    h, w = image_bgr.shape[:2]
+    gray = cv2.cvtColor(image_bgr, cv2.COLOR_BGR2GRAY)
+    edges = cv2.Canny(gray, 70, 150)
+    k = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
+    edges = cv2.morphologyEx(edges, cv2.MORPH_CLOSE, k, iterations=1)
+    contours, _ = cv2.findContours(edges, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE)
+
+    out: list[BBox] = []
+    page_area = float(max(1, h * w))
+    for c in contours:
+        peri = cv2.arcLength(c, True)
+        if peri <= 0:
+            continue
+        approx = cv2.approxPolyDP(c, 0.025 * peri, True)
+        if len(approx) != 4 or not cv2.isContourConvex(approx):
+            continue
+        x, y, bw, bh = cv2.boundingRect(approx)
+        bbox = clip_bbox((x, y, x + bw, y + bh), w, h)
+        area_ratio = bbox_area(bbox) / page_area
+        if area_ratio < max(0.018, cfg.min_visual_area_ratio * 1.5):
+            continue
+        if area_ratio > 0.62:
+            continue
+        short_side_ratio = min((bbox[2] - bbox[0]) / float(max(1, w)), (bbox[3] - bbox[1]) / float(max(1, h)))
+        if short_side_ratio < max(0.075, cfg.min_visual_short_side_ratio):
+            continue
+        if _is_full_page_like_bbox(bbox, (h, w)):
+            continue
+        if _is_strip_like_bbox(bbox, (h, w), cfg):
+            continue
+        if _bbox_non_text_fill_ratio(non_text_mask, bbox) < 0.12:
+            continue
+        x1, y1, x2, y2 = bbox
+        t_patch = text_mask[y1:y2, x1:x2]
+        t_overlap = float(np.count_nonzero(t_patch > 0)) / float(max(1, t_patch.size))
+        if t_overlap > 0.5:
+            continue
+        out.append(bbox)
+
+    return _merge_overlaps(out, 0.25)
+
+
+def _keep_simple_candidate(
+    metrics: CandidateMetrics,
+    bbox: BBox,
+    non_text_mask: np.ndarray,
+    cfg: VisualFilterConfig,
+    page_size: tuple[int, int],
+) -> tuple[bool, str]:
+    keep, reason = keep_candidate(metrics, cfg, page_size=page_size)
+    if not keep:
+        return False, reason
+
+    if _is_full_page_like_bbox(bbox, page_size):
+        return False, "full_page_like_simple"
+    if _is_strip_like_bbox(bbox, page_size, cfg):
+        return False, "strip_like_simple"
+
+    if metrics.area_ratio > 0.7:
+        return False, "too_large_simple"
+
+    non_text_fill = _bbox_non_text_fill_ratio(non_text_mask, bbox)
+    if non_text_fill < 0.1:
+        return False, "low_non_text_fill"
+
+    if metrics.text_overlap_ratio > 0.42 and metrics.edge_density < 0.012:
+        return False, "text_overlap_simple"
+
+    return True, "ok"
+
+
+def _extract_colorful_regions(
+    image_bgr: np.ndarray,
+    non_text_mask: np.ndarray,
+    text_mask: np.ndarray,
+    page_size: tuple[int, int],
+    min_area_ratio: float = 0.002,
+) -> list[BBox]:
+    """
+    Renkli bölgeleri tespit et - çocuk dergilerinde çizimler genellikle canlı renkli.
+    Non-text mask içindeki renkli ve texture'lı bölgeleri bulur.
+    """
+    h, w = page_size
+    hsv = cv2.cvtColor(image_bgr, cv2.COLOR_BGR2HSV)
+    gray = cv2.cvtColor(image_bgr, cv2.COLOR_BGR2GRAY)
+
+    # Canlı renkler (yüksek saturation, orta-yüksek value)
+    sat_mask = hsv[:, :, 1] > 45  # Saturation > 45
+    val_mask = hsv[:, :, 2] > 60  # Value > 60
+    colorful = sat_mask & val_mask
+
+    # Texture analizi ile renksiz ama detaylı bölgeleri de yakala
+    mean = cv2.GaussianBlur(gray.astype(np.float32), (0, 0), 3.0)
+    mean_sq = cv2.GaussianBlur((gray.astype(np.float32) ** 2), (0, 0), 3.0)
+    var = np.maximum(0.0, mean_sq - (mean * mean))
+    std = np.sqrt(var)
+    textured = std > 12.0
+
+    # Birleştir ve non-text mask ile kesiştir
+    visual_hints = (colorful | textured).astype(np.uint8) * 255
+    visual_regions = cv2.bitwise_and(visual_hints, non_text_mask)
+
+    # Text mask'i çıkar
+    if text_mask is not None:
+        visual_regions = cv2.bitwise_and(visual_regions, cv2.bitwise_not(text_mask))
+
+    # Connected components
+    num_labels, labels, stats, _ = cv2.connectedComponentsWithStats(
+        visual_regions, connectivity=8
+    )
+
+    boxes = []
+    min_area = int(h * w * min_area_ratio)
+
+    for i in range(1, num_labels):  # Label 0 = background
+        area = int(stats[i, cv2.CC_STAT_AREA])
+        if area >= min_area:
+            x = int(stats[i, cv2.CC_STAT_LEFT])
+            y = int(stats[i, cv2.CC_STAT_TOP])
+            bw = int(stats[i, cv2.CC_STAT_WIDTH])
+            bh = int(stats[i, cv2.CC_STAT_HEIGHT])
+            boxes.append((x, y, x + bw, y + bh))
+
+    return boxes
+
+
+def _split_large_visual_into_panels(
+    image_bgr: np.ndarray,
+    bbox: BBox,
+    non_text_mask: np.ndarray,
+    text_mask: np.ndarray,
+    cfg: VisualFilterConfig,
+    page_size: tuple[int, int],
+) -> list[BBox]:
+    """
+    Büyük görsel bloklarını alt panellere böl.
+    Renk, texture ve edge bilgilerini kullanarak bölme noktalarını bulur.
+    """
+    h, w = page_size
+    x1, y1, x2, y2 = bbox
+    bw = x2 - x1
+    bh = y2 - y1
+
+    if bw <= 0 or bh <= 0:
+        return [bbox]
+
+    area_ratio = bbox_area(bbox) / float(max(1, h * w))
+
+    # Sadece gerçekten büyük blokları böl (> %30 sayfa alanı)
+    if area_ratio < 0.30:
+        return [bbox]
+
+    patch = image_bgr[y1:y2, x1:x2]
+    if patch.size == 0:
+        return [bbox]
+
+    gray = cv2.cvtColor(patch, cv2.COLOR_BGR2GRAY)
+    hsv = cv2.cvtColor(patch, cv2.COLOR_BGR2HSV)
+
+    # Multi-feature map oluştur
+    # 1. Edge density
+    edges = cv2.Canny(gray, 80, 160) > 0
+
+    # 2. Saturation
+    sat = hsv[:, :, 1] > 40
+
+    # 3. Texture (local std)
+    mean = cv2.GaussianBlur(gray.astype(np.float32), (0, 0), 2.5)
+    mean_sq = cv2.GaussianBlur((gray.astype(np.float32) ** 2), (0, 0), 2.5)
+    var = np.maximum(0.0, mean_sq - (mean * mean))
+    std = np.sqrt(var)
+    textured = std > 14.0
+
+    # Feature birleştir
+    feature = (edges | sat | textured).astype(np.uint8) * 255
+
+    # Non-text mask ile kesiştir
+    nt_patch = non_text_mask[y1:y2, x1:x2]
+    feature = cv2.bitwise_and(feature, nt_patch)
+
+    # Text mask'i çıkar
+    if text_mask is not None:
+        tx_patch = text_mask[y1:y2, x1:x2]
+        feature = cv2.bitwise_and(feature, cv2.bitwise_not(tx_patch))
+
+    # Morphological clean
+    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (5, 5))
+    feature = cv2.morphologyEx(feature, cv2.MORPH_CLOSE, kernel, iterations=1)
+    feature = cv2.morphologyEx(feature, cv2.MORPH_OPEN, kernel, iterations=1)
+
+    # Connected components
+    num_labels, labels, stats, _ = cv2.connectedComponentsWithStats(
+        feature, connectivity=8
+    )
+
+    if num_labels <= 1:
+        # Fallback: grid-based split
+        return _grid_split_single_box(bbox, page_size, rows=2, cols=2)
+
+    # Her component için bbox hesapla
+    min_comp_area = int((bw * bh) * 0.02)  # En az %2 component alanı
+    panels: list[BBox] = []
+
+    for i in range(1, num_labels):
+        area = int(stats[i, cv2.CC_STAT_AREA])
+        if area < min_comp_area:
+            continue
+
+        x = int(stats[i, cv2.CC_STAT_LEFT])
+        y = int(stats[i, cv2.CC_STAT_TOP])
+        comp_bw = int(stats[i, cv2.CC_STAT_WIDTH])
+        comp_bh = int(stats[i, cv2.CC_STAT_HEIGHT])
+
+        # Global koordinatlara çevir
+        global_x1 = int(x1 + x)
+        global_y1 = int(y1 + y)
+        global_x2 = int(x1 + x + comp_bw)
+        global_y2 = int(y1 + y + comp_bh)
+
+        # Padding ekle
+        pad = max(6, int(round(min(h, w) * 0.008)))
+        panel = clip_bbox(
+            (global_x1 - pad, global_y1 - pad, global_x2 + pad, global_y2 + pad),
+            w, h
+        )
+        panels.append(panel)
+
+    # Eğer hiç panel bulunamadıysa, orijinal box'ı döndür
+    if not panels:
+        return [bbox]
+
+    # Çok küçük panelleri filtrele
+    min_panel_area = int(h * w * 0.004)
+    panels = [p for p in panels if bbox_area(p) >= min_panel_area]
+
+    return panels if panels else [bbox]
+
+
+def _grid_split_single_box(
+    bbox: BBox,
+    page_size: tuple[int, int],
+    rows: int = 2,
+    cols: int = 2,
+) -> list[BBox]:
+    """
+    Tek bir büyük kutuyu grid'e böl.
+    """
+    h, w = page_size
+    x1, y1, x2, y2 = bbox
+    bw = x2 - x1
+    bh = y2 - y1
+
+    cell_w = int(bw // cols)
+    cell_h = int(bh // rows)
+
+    panels: list[BBox] = []
+    for r in range(rows):
+        for c in range(cols):
+            cx1 = x1 + c * cell_w
+            cy1 = y1 + r * cell_h
+            cx2 = x1 + (c + 1) * cell_w if c < cols - 1 else x2
+            cy2 = y1 + (r + 1) * cell_h if r < rows - 1 else y2
+
+            pad = max(4, int(round(min(h, w) * 0.005)))
+            panel = clip_bbox((cx1 - pad, cy1 - pad, cx2 + pad, cy2 + pad), w, h)
+            panels.append(panel)
+
+    return panels
+
+
+def _extract_visual_candidates_simple(
     image_bgr: np.ndarray,
     non_text_mask: np.ndarray,
     text_mask: np.ndarray,
     cfg: VisualFilterConfig,
 ) -> tuple[list[CandidateMetrics], list[RejectedCandidate]]:
+    h, w = image_bgr.shape[:2]
+    contours, _ = cv2.findContours(non_text_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    candidates: list[CandidateMetrics] = []
+    rejected: list[RejectedCandidate] = []
+    page_size = (h, w)
+
+    # 0) Renkli bölge tespiti ile ekstra adaylar ekle
+    colorful_boxes = _extract_colorful_regions(image_bgr, non_text_mask, text_mask, page_size)
+
+    # 1) Core non-text connected-component candidates.
+    for contour in contours:
+        x, y, bw, bh = cv2.boundingRect(contour)
+        bbox = clip_bbox((x, y, x + bw, y + bh), w, h)
+        m = _compute_metrics(image_bgr, contour, bbox, text_mask=text_mask)
+        keep, reason = _keep_simple_candidate(m, bbox, non_text_mask, cfg, page_size)
+        if keep:
+            candidates.append(m)
+        else:
+            rejected.append(RejectedCandidate(bbox=bbox, reason=reason, area_ratio=m.area_ratio))
+
+    # Renkli bölgeleri de aday olarak ekle
+    for bbox in colorful_boxes:
+        x1, y1, x2, y2 = bbox
+        contour = np.array([[[x1, y1]], [[x2, y1]], [[x2, y2]], [[x1, y2]]], dtype=np.int32)
+        m = _compute_metrics(image_bgr, contour, bbox, text_mask=text_mask)
+        # Sadece henüz eklenmemiş olanları ekle
+        is_dup = any(iou(bbox, c.bbox) > 0.7 for c in candidates)
+        if not is_dup:
+            keep, reason = _keep_simple_candidate(m, bbox, non_text_mask, cfg, page_size)
+            if keep:
+                candidates.append(m)
+            else:
+                rejected.append(RejectedCandidate(bbox=bbox, reason=f"color_{reason}", area_ratio=m.area_ratio))
+
+    # 2) Guaranteed framed candidate recovery (framed photos/panels should not be missed).
+    framed_boxes = _extract_framed_candidate_boxes(image_bgr, non_text_mask, text_mask, cfg)
+    for bbox in framed_boxes:
+        x1, y1, x2, y2 = bbox
+        contour = np.array([[[x1, y1]], [[x2, y1]], [[x2, y2]], [[x1, y2]]], dtype=np.int32)
+        m = _compute_metrics(image_bgr, contour, bbox, text_mask=text_mask)
+        keep, reason = _keep_simple_candidate(m, bbox, non_text_mask, cfg, page_size)
+        if keep:
+            candidates.append(m)
+        else:
+            rejected.append(RejectedCandidate(bbox=bbox, reason=f"framed_{reason}", area_ratio=m.area_ratio))
+
+    # 3) Merge overlaps and light fragmentation, then re-score.
+    boxes = _merge_overlaps([c.bbox for c in candidates], cfg.merge_iou_threshold)
+    boxes = _merge_fragmented_boxes(boxes, (h, w), cfg)
+
+    # 3b) BÜYÜK GÖRSELLERİ PANELE BÖL - Çocuk dergileri için kritik!
+    split_boxes: list[BBox] = []
+    for bbox in boxes:
+        area_ratio = bbox_area(bbox) / float(max(1, h * w))
+        if area_ratio > 0.25:  # %25'ten büyük görselleri böl
+            panels = _split_large_visual_into_panels(
+                image_bgr, bbox, non_text_mask, text_mask, cfg, page_size
+            )
+            split_boxes.extend(panels)
+        else:
+            split_boxes.append(bbox)
+
+    final: list[CandidateMetrics] = []
+    for bbox in split_boxes:
+        x1, y1, x2, y2 = bbox
+        contour = np.array([[[x1, y1]], [[x2, y1]], [[x2, y2]], [[x1, y2]]], dtype=np.int32)
+        m = _compute_metrics(image_bgr, contour, bbox, text_mask=text_mask)
+        keep, reason = _keep_simple_candidate(m, bbox, non_text_mask, cfg, page_size)
+        if keep:
+            final.append(m)
+        else:
+            rejected.append(RejectedCandidate(bbox=bbox, reason=f"post_split_{reason}", area_ratio=m.area_ratio))
+
+    # 4) Conservative fallback: choose strongest localized candidates, never full-page.
+    if not final:
+        ranked: list[CandidateMetrics] = []
+        for contour in contours:
+            x, y, bw, bh = cv2.boundingRect(contour)
+            bbox = clip_bbox((x, y, x + bw, y + bh), w, h)
+            if _is_full_page_like_bbox(bbox, page_size):
+                continue
+            if _is_strip_like_bbox(bbox, page_size, cfg):
+                continue
+            m = _compute_metrics(image_bgr, contour, bbox, text_mask=text_mask)
+            if (
+                m.text_overlap_ratio <= 0.45
+                and m.area_ratio >= max(0.012, cfg.min_visual_area_ratio * 0.9)
+                and m.area_ratio <= 0.55
+                and _bbox_non_text_fill_ratio(non_text_mask, bbox) >= 0.1
+                and (m.edge_density >= 0.009 or m.entropy >= 3.2)
+            ):
+                ranked.append(m)
+        ranked.sort(key=lambda x: (x.area_ratio, x.edge_density, x.entropy), reverse=True)
+        final.extend(ranked[:2])
+
+    # 5) If still empty, prefer framed detections instead of broad page crops.
+    if not final and framed_boxes:
+        seeded: list[CandidateMetrics] = []
+        for bbox in framed_boxes:
+            x1, y1, x2, y2 = bbox
+            contour = np.array([[[x1, y1]], [[x2, y1]], [[x2, y2]], [[x1, y2]]], dtype=np.int32)
+            m = _compute_metrics(image_bgr, contour, bbox, text_mask=text_mask)
+            if m.area_ratio <= 0.62:
+                seeded.append(m)
+        seeded.sort(key=lambda x: (x.area_ratio, x.edge_density, x.entropy), reverse=True)
+        final.extend(seeded[:2])
+
+    # 6) Recall rescue: split rejected strip/full-page/large regions into localized panels.
+    if len(final) < 2:
+        rescue_reasons = {
+            "too_canvas_strip",
+            "post_merge_too_canvas_strip",
+            "strip_like_simple",
+            "post_merge_strip_like_simple",
+            "too_large_ratio",
+            "post_merge_too_large_ratio",
+            "too_large_simple",
+            "post_merge_too_large_simple",
+            "full_page_like_simple",
+            "post_merge_full_page_like_simple",
+        }
+        split_boxes: list[BBox] = []
+        for rej in rejected:
+            if rej.reason not in rescue_reasons:
+                continue
+            src = rej.bbox
+            parts: list[BBox] = []
+            if _is_strip_like_bbox(src, page_size, cfg):
+                parts = _split_strip_box_by_projection(src, image_bgr, non_text_mask, text_mask, page_size, cfg)
+            if not parts:
+                parts = _split_large_box_feature_components(image_bgr, src, non_text_mask, text_mask, cfg)
+            split_boxes.extend(parts)
+
+        split_boxes = _merge_overlaps(split_boxes, 0.15)
+        split_boxes = _merge_fragmented_boxes(split_boxes, page_size, cfg)
+        rescored: list[CandidateMetrics] = []
+        for bbox in split_boxes:
+            x1, y1, x2, y2 = bbox
+            contour = np.array([[[x1, y1]], [[x2, y1]], [[x2, y2]], [[x1, y2]]], dtype=np.int32)
+            m = _compute_metrics(image_bgr, contour, bbox, text_mask=text_mask)
+            keep, reason = _keep_simple_candidate(m, bbox, non_text_mask, cfg, page_size)
+            if keep:
+                rescored.append(m)
+            else:
+                rejected.append(RejectedCandidate(bbox=bbox, reason=f"resplit_{reason}", area_ratio=m.area_ratio))
+        rescored.sort(key=lambda x: _simple_candidate_score(x, page_size), reverse=True)
+        need = max(0, max(2, cfg.simple_mode_max_visuals) - len(final))
+        for c in rescored:
+            if need <= 0:
+                break
+            if any(iou(c.bbox, f.bbox) > 0.65 for f in final):
+                continue
+            final.append(c)
+            need -= 1
+    # Keep strongest candidates first, then enforce deterministic y/x order.
+    dedup: list[CandidateMetrics] = []
+    for c in sorted(final, key=lambda x: _simple_candidate_score(x, page_size), reverse=True):
+        if any(iou(c.bbox, k.bbox) > 0.75 for k in dedup):
+            continue
+        dedup.append(c)
+    dedup = dedup[: max(1, cfg.simple_mode_max_visuals)]
+    final = sorted(dedup, key=lambda c: (c.bbox[1], c.bbox[0]))
+    return final, rejected
+
+
+def extract_visual_candidates(
+    image_bgr: np.ndarray,
+    non_text_mask: np.ndarray,
+    text_mask: np.ndarray,
+    cfg: VisualFilterConfig,
+    page_archetype: str = "mixed_page",
+) -> tuple[list[CandidateMetrics], list[RejectedCandidate]]:
+    if cfg.simple_mode:
+        return _extract_visual_candidates_simple(image_bgr, non_text_mask, text_mask, cfg)
+
     contours, _ = cv2.findContours(non_text_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     contours = list(contours)
     h, w = image_bgr.shape[:2]
@@ -919,6 +1541,25 @@ def extract_visual_candidates(
         for x1, y1, x2, y2 in seed_boxes:
             contour = np.array([[[x1, y1]], [[x2, y1]], [[x2, y2]], [[x1, y2]]], dtype=np.int32)
             contours.append(contour)
+
+    # Container-first extras for default mode:
+    # add framed/photo-like rectangles and colorful textured regions as additional contours.
+    framed_boxes = _extract_framed_candidate_boxes(image_bgr, non_text_mask, text_mask, cfg)
+    colorful_boxes = _extract_colorful_regions(
+        image_bgr,
+        non_text_mask,
+        text_mask,
+        page_size=(h, w),
+        min_area_ratio=max(0.0018, cfg.min_visual_area_ratio * 0.35),
+    )
+    extra_boxes: list[BBox] = []
+    for bbox in framed_boxes + colorful_boxes:
+        if any(iou(bbox, e) > 0.75 for e in extra_boxes):
+            continue
+        extra_boxes.append(bbox)
+    for x1, y1, x2, y2 in extra_boxes:
+        contour = np.array([[[x1, y1]], [[x2, y1]], [[x2, y2]], [[x1, y2]]], dtype=np.int32)
+        contours.append(contour)
 
     raw_candidates: list[CandidateMetrics] = []
     rejected: list[RejectedCandidate] = []
@@ -1097,15 +1738,16 @@ def extract_visual_candidates(
             elif reason == "too_small_ratio" and m.area_ratio >= 0.0038 and m.entropy >= 3.0 and m.edge_density >= 0.01:
                 final.append(m)
 
-    # Last resort with bounded width: avoid misses on strongly visual pages
-    # without emitting exact full-page boxes.
+    # Last resort with bounded width: keep heavily constrained, only for true photo pages.
     if not final:
         page_edge, page_entropy, page_white = _page_visual_stats(image_bgr)
         if (
+            page_archetype == "full_photo_page"
+            and
             page_edge >= cfg.fullpage_rescue_min_edge_density
             and page_entropy >= cfg.fullpage_rescue_min_entropy
             and page_white <= cfg.fullpage_rescue_max_white_ratio
-            and text_ratio <= 0.38
+            and text_ratio <= cfg.fullpage_rescue_max_text_ratio
         ):
             mid = w // 2
             pad = max(8, int(round(min(h, w) * 0.03)))
@@ -1128,14 +1770,15 @@ def extract_visual_candidates(
                 x1, y1, x2, y2 = bbox
                 contour = np.array([[[x1, y1]], [[x2, y1]], [[x2, y2]], [[x1, y2]]], dtype=np.int32)
                 m = _compute_metrics(image_bgr, contour, bbox, text_mask=text_mask)
-                final.append(m)
+                # Do not emit broad canvas-like bands as fallback.
+                if not _is_full_width_band(bbox, (h, w)):
+                    final.append(m)
 
-    # Wide-spread rescue: if current result is empty or strip-like/sparse, extract
-    # left-right coherent visual panels to avoid missing one side completely.
+    # Wide-spread rescue: only for true full-photo pages to avoid page-halves on editorial layouts.
     if (w / float(max(1, h))) >= 1.35:
         trigger = False
         if not final:
-            trigger = True
+            trigger = page_archetype == "full_photo_page"
         elif len(final) == 1:
             b = final[0].bbox
             bw = b[2] - b[0]
@@ -1145,32 +1788,67 @@ def extract_visual_candidates(
             ar = bbox_area(b) / float(max(1, h * w))
             cx = (b[0] + b[2]) / 2.0
             side_locked = (cx < 0.42 * w) or (cx > 0.58 * w)
-            if (wr > 0.7 and hr < 0.35) or (ar < 0.1) or side_locked:
+            if page_archetype == "full_photo_page" and ((wr > 0.7 and hr < 0.35) or (ar < 0.1) or side_locked):
                 trigger = True
         if trigger:
             half_boxes = _extract_wide_half_panels(image_bgr, non_text_mask, text_mask, cfg, (h, w))
             if half_boxes:
                 final = []
                 for bbox in half_boxes:
+                    if _is_full_width_band(bbox, (h, w)):
+                        continue
                     x1, y1, x2, y2 = bbox
                     contour = np.array([[[x1, y1]], [[x2, y1]], [[x2, y2]], [[x1, y2]]], dtype=np.int32)
                     final.append(_compute_metrics(image_bgr, contour, bbox, text_mask=text_mask))
 
-    # Split over-wide giant boxes into coherent left/right panels when possible.
-    if final:
+    # Split over-wide giant boxes only for full-photo pages.
+    if final and page_archetype == "full_photo_page":
         split_final: list[CandidateMetrics] = []
         for c in final:
             parts = _split_huge_wide_box(c.bbox, image_bgr, non_text_mask, text_mask, (h, w))
             for bbox in parts:
+                if _is_full_width_band(bbox, (h, w)):
+                    continue
                 x1, y1, x2, y2 = bbox
                 contour = np.array([[[x1, y1]], [[x2, y1]], [[x2, y2]], [[x1, y2]]], dtype=np.int32)
                 split_final.append(_compute_metrics(image_bgr, contour, bbox, text_mask=text_mask))
-        final = split_final
+        if split_final:
+            final = split_final
+
+    # Final guardrail: drop residual page-wide bands unless this is truly a photo page.
+    if final and page_archetype != "full_photo_page":
+        final = [c for c in final if not _is_full_width_band(c.bbox, (h, w))]
 
     # Final panel-level consolidation to avoid fragmented crops.
     coalesced = _coalesce_visual_panels(final, image_bgr, text_mask, cfg, (h, w))
     if coalesced:
         final = coalesced
+
+    # Apply the same guardrail after coalescing as well; merging can re-create wide canvas bands.
+    if final and page_archetype != "full_photo_page":
+        final = [c for c in final if not _is_full_width_band(c.bbox, (h, w))]
+        if (not final) and framed_boxes:
+            # If everything was a band, fall back to framed candidates.
+            seeded: list[CandidateMetrics] = []
+            for bbox in framed_boxes:
+                x1, y1, x2, y2 = bbox
+                contour = np.array([[[x1, y1]], [[x2, y1]], [[x2, y2]], [[x1, y2]]], dtype=np.int32)
+                m = _compute_metrics(image_bgr, contour, bbox, text_mask=text_mask)
+                keep, _ = keep_candidate(m, cfg, page_size=(h, w))
+                if keep and not _is_full_width_band(m.bbox, (h, w)):
+                    seeded.append(m)
+            if seeded:
+                final = seeded
+
+    # If all candidates collapsed after guardrails, recover a center-focused visual box.
+    if not final and page_archetype != "full_photo_page":
+        focus_boxes = _extract_center_focus_boxes(image_bgr, text_mask, (h, w))
+        for bbox in focus_boxes:
+            x1, y1, x2, y2 = bbox
+            contour = np.array([[[x1, y1]], [[x2, y1]], [[x2, y2]], [[x1, y2]]], dtype=np.int32)
+            m = _compute_metrics(image_bgr, contour, bbox, text_mask=text_mask)
+            if not _is_full_width_band(bbox, (h, w)):
+                final.append(m)
 
     final.sort(key=lambda c: (c.bbox[1], c.bbox[0]))
     return final, rejected
@@ -1260,13 +1938,273 @@ def _qa_decision(
     return (len(reasons) > 0), reasons
 
 
-def build_visual_decisions(
+def _decision_quality_score(d: VisualDecision, page_size: tuple[int, int]) -> float:
+    h, w = page_size
+    m = d.metrics
+    x1, y1, x2, y2 = m.bbox
+    bw = max(1, x2 - x1)
+    bh = max(1, y2 - y1)
+    wr = bw / float(max(1, w))
+    hr = bh / float(max(1, h))
+
+    base = (
+        2.0 * min(1.0, m.edge_density / 0.03)
+        + 1.8 * min(1.0, m.entropy / 5.2)
+        + 0.7 * min(1.0, m.fill_ratio / 0.45)
+        - 1.6 * min(1.0, m.text_overlap_ratio / 0.55)
+    )
+    # Prefer content-sized boxes over giant page-wide boxes unless unavoidable.
+    if m.area_ratio > 0.72:
+        base -= 2.4
+    elif m.area_ratio > 0.55:
+        base -= 1.3
+    elif 0.02 <= m.area_ratio <= 0.5:
+        base += 0.55
+    # Penalize canvas-like strips.
+    if (wr > 0.92 and hr < 0.33) or (hr > 0.92 and wr < 0.33):
+        base -= 1.8
+    if d.needs_review:
+        base -= 0.6
+    return float(base)
+
+
+def _expand_large_decision_into_subdecisions(
+    d: VisualDecision,
+    image_bgr: np.ndarray,
+    non_text_mask: np.ndarray,
+    text_mask: np.ndarray,
+    cfg: VisualFilterConfig,
+) -> list[VisualDecision]:
+    h, w = image_bgr.shape[:2]
+    m = d.metrics
+    # Only try to split very large compositions.
+    if m.area_ratio < 0.58:
+        return [d]
+    sub_boxes = _split_large_box_feature_components(image_bgr, m.bbox, non_text_mask, text_mask, cfg)
+    if len(sub_boxes) < 2:
+        return [d]
+
+    out: list[VisualDecision] = []
+    for bbox in _merge_overlaps(sub_boxes, 0.15):
+        x1, y1, x2, y2 = bbox
+        contour = np.array([[[x1, y1]], [[x2, y1]], [[x2, y2]], [[x1, y2]]], dtype=np.int32)
+        nm = _compute_metrics(image_bgr, contour, bbox, text_mask=text_mask)
+        keep, _ = keep_candidate(nm, cfg, page_size=(h, w))
+        if not keep:
+            continue
+        ncls = _classify_visual(nm, (h, w))
+        nreview, nreasons = _qa_decision(nm, (h, w), ncls)
+        out.append(
+            VisualDecision(
+                metrics=nm,
+                visual_class=ncls if not nreview else "ambiguous_review",
+                needs_review=nreview,
+                review_reasons=nreasons,
+            )
+        )
+    if len(out) < 2:
+        return [d]
+
+    old_score = _decision_quality_score(d, (h, w))
+    new_score = sum(_decision_quality_score(x, (h, w)) for x in out)
+    # Replace giant single crop only when split is clearly better.
+    if new_score >= (old_score + 0.8):
+        return out
+    return [d]
+
+
+def _select_decision_set(decisions: list[VisualDecision], page_size: tuple[int, int]) -> list[VisualDecision]:
+    if not decisions:
+        return []
+    h, w = page_size
+    ranked = sorted(
+        decisions,
+        key=lambda d: _decision_quality_score(d, (h, w)),
+        reverse=True,
+    )
+
+    selected: list[VisualDecision] = []
+    for d in ranked:
+        # Keep strong non-overlapping candidates first.
+        if any(iou(d.metrics.bbox, s.metrics.bbox) > 0.72 for s in selected):
+            continue
+        selected.append(d)
+
+    # Prevent over-collapse to one giant crop when solid alternatives exist.
+    if len(selected) == 1:
+        only = selected[0]
+        if only.metrics.area_ratio > 0.7:
+            alt = [
+                d
+                for d in ranked[1:]
+                if d.metrics.area_ratio >= 0.05 and iou(d.metrics.bbox, only.metrics.bbox) < 0.55
+            ]
+            if alt:
+                selected.extend(alt[:2])
+
+    # Avoid over-fragmentation: keep strongest subset when many tiny crops survive.
+    if len(selected) > 5:
+        small_count = sum(1 for d in selected if d.metrics.area_ratio <= 0.08)
+        coverage = sum(d.metrics.area_ratio for d in selected)
+        if small_count >= 4 and coverage <= 0.7:
+            ranked_selected = sorted(selected, key=lambda d: _decision_quality_score(d, (h, w)), reverse=True)
+            selected = ranked_selected[:5]
+
+    selected.sort(key=lambda x: (x.metrics.bbox[1], x.metrics.bbox[0]))
+    return selected
+
+
+def _should_merge_parent_child(
+    a: VisualDecision,
+    b: VisualDecision,
+    page_size: tuple[int, int],
+    cfg: VisualFilterConfig,
+) -> bool:
+    h, w = page_size
+    pa = a.metrics.bbox
+    pb = b.metrics.bbox
+    inter = _intersection_area(pa, pb)
+    if inter <= 0:
+        return False
+    min_a = float(max(1, min(bbox_area(pa), bbox_area(pb))))
+    ov = inter / min_a
+    if ov < cfg.parent_child_iou_merge:
+        return False
+    ua = bbox_area(bbox_union([pa, pb])) / float(max(1, h * w))
+    if ua > cfg.max_visual_area_ratio:
+        return False
+    return True
+
+
+def _merge_parent_child_decisions(
+    decisions: list[VisualDecision],
+    image_bgr: np.ndarray,
+    text_mask: np.ndarray,
+    cfg: VisualFilterConfig,
+) -> list[VisualDecision]:
+    if len(decisions) < 2:
+        return decisions
+    h, w = image_bgr.shape[:2]
+    cur = list(decisions)
+    changed = True
+    while changed and len(cur) > 1:
+        changed = False
+        used = [False] * len(cur)
+        nxt: list[VisualDecision] = []
+        for i in range(len(cur)):
+            if used[i]:
+                continue
+            used[i] = True
+            current = cur[i]
+            for j in range(i + 1, len(cur)):
+                if used[j]:
+                    continue
+                other = cur[j]
+                if not _should_merge_parent_child(current, other, (h, w), cfg):
+                    continue
+                ub = bbox_union([current.metrics.bbox, other.metrics.bbox])
+                x1, y1, x2, y2 = ub
+                contour = np.array([[[x1, y1]], [[x2, y1]], [[x2, y2]], [[x1, y2]]], dtype=np.int32)
+                m = _compute_metrics(image_bgr, contour, ub, text_mask=text_mask)
+                cls = _classify_visual(m, (h, w))
+                rv, rs = _qa_decision(m, (h, w), cls)
+                current = VisualDecision(
+                    metrics=m,
+                    visual_class=cls if not rv else "ambiguous_review",
+                    needs_review=rv,
+                    review_reasons=rs,
+                )
+                used[j] = True
+                changed = True
+            nxt.append(current)
+        cur = nxt
+    cur.sort(key=lambda d: (d.metrics.bbox[1], d.metrics.bbox[0]))
+    return cur
+
+
+def _route_decisions_by_page_type(
+    decisions: list[VisualDecision],
+    page_archetype: str,
+    page_size: tuple[int, int],
+    cfg: VisualFilterConfig,
+) -> list[VisualDecision]:
+    if not decisions:
+        return []
+    h, w = page_size
+    ranked = sorted(decisions, key=lambda d: _decision_quality_score(d, (h, w)), reverse=True)
+
+    if page_archetype == "full_photo_page":
+        filtered = [d for d in ranked if d.metrics.area_ratio >= 0.04]
+        return sorted(filtered[: cfg.max_visuals_full_photo_page], key=lambda d: (d.metrics.bbox[1], d.metrics.bbox[0]))
+    if page_archetype == "collage_card_page":
+        filtered = [d for d in ranked if d.metrics.area_ratio >= 0.02]
+        return sorted(
+            filtered[: cfg.max_visuals_collage_card_page],
+            key=lambda d: (d.metrics.bbox[1], d.metrics.bbox[0]),
+        )
+    if page_archetype == "comic_panel_page":
+        return sorted(
+            ranked[: cfg.max_visuals_comic_panel_page],
+            key=lambda d: (d.metrics.bbox[1], d.metrics.bbox[0]),
+        )
+    if page_archetype == "text_heavy_editorial_page":
+        filtered = [d for d in ranked if d.metrics.area_ratio >= 0.03]
+        return sorted(
+            filtered[: cfg.max_visuals_text_heavy_editorial_page],
+            key=lambda d: (d.metrics.bbox[1], d.metrics.bbox[0]),
+        )
+    return sorted(ranked, key=lambda d: (d.metrics.bbox[1], d.metrics.bbox[0]))
+
+
+def _build_visual_decisions_simple(
     candidates: list[CandidateMetrics],
     image_bgr: np.ndarray,
     non_text_mask: np.ndarray,
     text_mask: np.ndarray,
     cfg: VisualFilterConfig,
 ) -> list[VisualDecision]:
+    h, w = image_bgr.shape[:2]
+    decisions: list[VisualDecision] = []
+    for c in candidates:
+        cls = _classify_visual(c, (h, w))
+        refined = c.bbox
+        if cls in {"framed_rectangular", "comic_panels", "collage_cards"}:
+            refined = _tighten_to_feature(c.bbox, image_bgr, non_text_mask, text_mask, "framed", pad_ratio=0.018)
+        elif cls == "freeform_illustrations":
+            refined = _tighten_to_feature(c.bbox, image_bgr, non_text_mask, text_mask, "freeform", pad_ratio=0.04)
+        x1, y1, x2, y2 = refined
+        contour = np.array([[[x1, y1]], [[x2, y1]], [[x2, y2]], [[x1, y2]]], dtype=np.int32)
+        m = _compute_metrics(image_bgr, contour, refined, text_mask=text_mask)
+        needs_review, reasons = _qa_decision(m, (h, w), cls)
+        decisions.append(
+            VisualDecision(
+                metrics=m,
+                visual_class=cls if not needs_review else "ambiguous_review",
+                needs_review=needs_review,
+                review_reasons=reasons,
+            )
+        )
+
+    dedup: list[VisualDecision] = []
+    for d in sorted(decisions, key=lambda x: _decision_quality_score(x, (h, w)), reverse=True):
+        if any(iou(d.metrics.bbox, k.metrics.bbox) > 0.75 for k in dedup):
+            continue
+        dedup.append(d)
+    dedup = sorted(dedup[: max(1, cfg.simple_mode_max_visuals)], key=lambda d: (d.metrics.bbox[1], d.metrics.bbox[0]))
+    return dedup
+
+
+def build_visual_decisions(
+    candidates: list[CandidateMetrics],
+    image_bgr: np.ndarray,
+    non_text_mask: np.ndarray,
+    text_mask: np.ndarray,
+    cfg: VisualFilterConfig,
+    page_archetype: str = "mixed_page",
+) -> list[VisualDecision]:
+    if cfg.simple_mode:
+        return _build_visual_decisions_simple(candidates, image_bgr, non_text_mask, text_mask, cfg)
+
     h, w = image_bgr.shape[:2]
     # Safety net: if extraction returned only one side on a wide spread,
     # force a second pass half-panel recovery before classification.
@@ -1299,10 +2237,18 @@ def build_visual_decisions(
         out_class: VisualClass = cls if not needs_review else "ambiguous_review"
         decisions.append(VisualDecision(metrics=m, visual_class=out_class, needs_review=needs_review, review_reasons=reasons))
 
+    expanded: list[VisualDecision] = []
+    for d in decisions:
+        expanded.extend(_expand_large_decision_into_subdecisions(d, image_bgr, non_text_mask, text_mask, cfg))
+
     # Drop near-duplicates after refinement.
-    final: list[VisualDecision] = []
-    for d in sorted(decisions, key=lambda x: (x.metrics.bbox[1], x.metrics.bbox[0])):
-        if any(iou(d.metrics.bbox, k.metrics.bbox) > 0.75 for k in final):
+    dedup: list[VisualDecision] = []
+    for d in sorted(expanded, key=lambda x: (x.metrics.bbox[1], x.metrics.bbox[0])):
+        if any(iou(d.metrics.bbox, k.metrics.bbox) > 0.75 for k in dedup):
             continue
-        final.append(d)
+        dedup.append(d)
+
+    final = _select_decision_set(dedup, (h, w))
+    final = _merge_parent_child_decisions(final, image_bgr, text_mask, cfg)
+    final = _route_decisions_by_page_type(final, page_archetype, (h, w), cfg)
     return final

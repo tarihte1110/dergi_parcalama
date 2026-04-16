@@ -52,6 +52,37 @@ def _headline_text_pattern(clean_text: str) -> bool:
     return True
 
 
+def _looks_like_dialogue_or_bubble(clean_text: str) -> bool:
+    txt = re.sub(r"\s+", " ", clean_text.strip())
+    if not txt:
+        return False
+    if re.match(r"^[-–—]\s*\w+", txt):
+        return True
+    if txt.startswith(("“", "\"", "'", "‘")) and txt.endswith(("”", "\"", "'", "’")):
+        return True
+    # Dialogue-like snippets are usually short and punctuated as spoken lines.
+    if len(txt) <= 90 and txt.endswith(("...", ".", "!", "?")) and ("," in txt or "..." in txt):
+        return True
+    return False
+
+
+def _reasonable_headline_text(clean_text: str) -> bool:
+    txt = re.sub(r"\s+", " ", clean_text.strip())
+    if not txt:
+        return False
+    first_alpha_match = re.search(r"[A-Za-zÇĞİÖŞÜçğıöşü]", txt)
+    if first_alpha_match:
+        ch = first_alpha_match.group(0)
+        if ch.lower() == ch:
+            return False
+    words = [w for w in txt.split(" ") if w]
+    if len(words) >= 2:
+        return True
+    # Allow single-token headline only for acronym-like labels.
+    token = words[0] if words else ""
+    return bool(re.fullmatch(r"[A-ZÇĞİÖŞÜ0-9]{3,}", token))
+
+
 def _split_prefix_headline_blocks(blocks: list[TextBlock], cfg: ClassificationConfig) -> list[TextBlock]:
     split_blocks: list[TextBlock] = []
     for block in blocks:
@@ -130,6 +161,11 @@ def classify_text_blocks(blocks: list[TextBlock], cfg: ClassificationConfig) -> 
         alpha_count = len(re.findall(r"[A-Za-zÇĞİÖŞÜçğıöşü]", clean_text))
         digit_ratio = digit_count / max(1, chars)
         block_median_h = statistics.median([l.line_height for l in block.lines]) if block.lines else page_median_h
+        avg_conf = (
+            sum(float(getattr(l, "confidence", 0.0)) for l in block.lines) / max(1, len(block.lines))
+            if block.lines
+            else 0.0
+        )
 
         headline_like = (
             block_median_h >= page_median_h * cfg.headline_height_ratio
@@ -154,6 +190,7 @@ def classify_text_blocks(blocks: list[TextBlock], cfg: ClassificationConfig) -> 
                 "digit_ratio": digit_ratio,
                 "alpha_count": alpha_count,
                 "clean_text": clean_text,
+                "avg_conf": avg_conf,
             }
         )
 
@@ -162,6 +199,8 @@ def classify_text_blocks(blocks: list[TextBlock], cfg: ClassificationConfig) -> 
     for i, block in enumerate(blocks):
         headline_like = bool(stats[i]["headline_like"])
         content_like = bool(stats[i]["content_like"])
+        clean_text = str(stats[i]["clean_text"])
+        dialogue_like = _looks_like_dialogue_or_bubble(clean_text)
 
         has_near_content = False
         near_content_width = 0.0
@@ -199,12 +238,32 @@ def classify_text_blocks(blocks: list[TextBlock], cfg: ClassificationConfig) -> 
             and int(stats[i]["chars"]) <= cfg.headline_max_chars
             and float(stats[i]["digit_ratio"]) <= cfg.headline_max_digit_ratio
             and int(stats[i]["alpha_count"]) >= cfg.headline_min_alpha_chars
+            and float(stats[i]["avg_conf"]) >= 0.55
             and _headline_text_pattern(str(stats[i]["clean_text"]))
         )
         block_w = float(block.bbox_px[2] - block.bbox_px[0])
         narrower_than_content = near_content_width > 0 and block_w <= near_content_width * 0.92
+        strong_headline_like = (
+            int(stats[i]["line_count"]) <= 2
+            and int(stats[i]["chars"]) <= min(90, cfg.headline_max_chars)
+            and int(stats[i]["alpha_count"]) >= cfg.headline_min_alpha_chars
+            and float(stats[i]["avg_conf"]) >= 0.58
+            and not dialogue_like
+            and headline_like
+        )
 
-        if (headline_like or short_title_like) and not content_like and has_near_content and narrower_than_content:
+        headline_text_ok = _reasonable_headline_text(clean_text) and _headline_text_pattern(clean_text)
+
+        if (
+            not dialogue_like
+            and not content_like
+            and has_near_content
+            and headline_text_ok
+            and (
+                ((headline_like or short_title_like) and narrower_than_content)
+                or strong_headline_like
+            )
+        ):
             block.role = "headline"
         elif content_like:
             block.role = "content"
